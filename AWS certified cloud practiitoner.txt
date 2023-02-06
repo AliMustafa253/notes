@@ -91,8 +91,42 @@
 		regional construct. Automatically highly scalable
 		
 	--Messaging and queuing--
+		tightly coupled architecture = single component change = issues
 		
+		loosely coupled = buffer in between with  queing
 		
+		***Simple Queue Service And Notification Service
+			*SQS: send store receive messages at any volu,messages
+			
+			*SNS: publish/subscription service. messages and notifications, 
+			channel messages etc 2 different method
+				
+		Monolothic Architecture = tightly coupled can break down
+		Microservices = loosely coupled AWS allows microservices 
+		
+	-Management processes-
+			Serverless: cannot see or access underlying infrastructure. ez scaling
+			
+			AWS Lambda: Lambda function = wait for trigger and runs on an
+				managed env automatically scalable
+				run under 15min codes	eg resize image whn uploaded
+				pay for compute time only
+		
+		Container: package for your code.
+		Clusters = containers.
+			Run containers at scales use these
+		EC2 for access and underlying
+		AWS no underying
+		
+		Docker container based ECS or EKS
+		--ECS--
+			Elastic COntainer Service= scalable supports docker
+		--EKS--
+			Elastic Kubernetes Service = run Kubernetes on AWS
+		Ur own list or fargate
+		--AWS Fargate--
+			Donot need to provision or manage servers
+			
 	
 	
 	

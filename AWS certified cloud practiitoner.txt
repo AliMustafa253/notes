@@ -1,0 +1,34 @@
+===Introduction===
+
+	==Client-server model ==
+
+		- Amazon Elastic Compute Cloud EC2 -- > Server
+		- You only pay for what you use
+		- AWS instances = click and pay for what you need
+	
+	==What is cloud computing?==
+	
+		**On Demand Delivery of IT resources over the internet with pay
+		  as you go pricing.
+		
+		- undifferentiated heavy lifting of IT = AWS helps with it as 
+			they dont differentiate companies, how you build and manage matters 
+			not if you can install or how you backup as the engine is just the engine
+
+		--Deployment Modules--
+			-Cloud-based Deployment: run all parts on cloud. 
+				migrate/design or build applications on cloud
+				
+			-On-Premises Deployment: virtualization and resource mng tools 
+				aka private cloud deployment
+			-Hybrid Deployment: cloud based connected with on premise infrastructure
+			
+		--Benefits--
+			Trade upfront expense
+			Maintain data centers/
+			stop guessing capacity = prevent excess or limit capacity
+			economies of scale = larger user base
+			Inc speed and agility
+			global infrastructure diff servers
+			
+			

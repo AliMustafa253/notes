@@ -31,4 +31,70 @@
 			Inc speed and agility
 			global infrastructure diff servers
 			
+===EC2===
+	elastic compute cloud (amazon ec2)
+	
+	- Highly flexible
+	- cost effective
+	- quick		
+		research and buy upfront, datacenter etc
+	
+	virtualization technology used for sharing hosts
+	
+	**Multitency: sharing resources 
+			hypervsior responsible for it
+		configurations choosable
+			Windows/Linux
+			Web apps
+			Databases
+			Third party softwares
+			
+		Launch connect use
+		
+	--Instance types--
+		- General purpose: balanced/web servers
+		- Compute Optimized: Processure/ gaming web servers
+		- Memory Optimized: high performance db
+		- Accelerated computing: Grapic process
+		- Storage optimized: data warehousing, high read and write
+		
+	--EC2 pricing--
+		- On demand: how much it runs for : unpredictable usage not for longer terms
+		- Savings Plan: contract and consistent amount in 1 or 3 years term save upto 72% vs on demand
+		- Reserved Instances: 1 or 3 partial or upfront some instances
+		- Spot Instances: Can be interrupted: No contracts or commitments
+			Batch instances best 2 minutres warning upto 90% discount
+		- Dedicated Hosts: No sharing
+		
+	--Scalability And Elasticability-
+		Scalability: refers to begining with only resources you need and 
+			design in a way to auto respond to demand by scaling
+		
+		EC2 Auto Scaling: automatically add or remove ec2 instances
+			- Dynamic scaling responds to demand
+			- Predictive scaling right number based on prediction
+			
+		decoupling = allows to get exact amount of resources req
+					-backend etc
+					
+		desired is minimum by default
+		
+	--Elastic Load Balancing--
+		DECOUPLED ARCHITECTURE
+		single point to direct to different routes
+			in front end and backend both
+		
+		Even distribution = need a route = need a load balancer
+		
+		properly distribute traffic = via ELB
+		
+		regional construct. Automatically highly scalable
+		
+	--Messaging and queuing--
+		
+		
+	
+	
+	
+			
 			

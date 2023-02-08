@@ -1,0 +1,39 @@
+===Creational Patterns===
+	--Factory Pattern--
+		Instantiate class
+		create it by telling what type of class you want.
+	
+	--Builder Pattern--
+		Instantiate class after refering to builder making
+		what class you want
+		
+	--Singleton Pattern--
+		Static Instance Variable
+		**Maintaining a single application state
+		Multiple components have one resource
+		
+		getAppState() return existing instance
+		Both pattern same = shared source of truth
+		How observe?
+		
+===Structural Patterns===
+	--Adapter Pattern--
+		etc Make one method compatible with another
+	
+	--Facade Pattern--
+		Wrapper class used to abstract lower level system
+		HTTP clients
+		Even arrays = memory allocation etc
+
+===Behavioural Patterns===
+	--Observer Pattern--
+		Subject/Publisher
+		Observers/Subscribers
+		send to each user
+	
+	--Iterator Pattern--
+		linked list etc iterate through
+	
+	--Strategy Pattern--
+		Strategies = filter strategy RemoveOdd etc
+		Pass into filter method

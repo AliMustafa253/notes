@@ -91,10 +91,9 @@
 		regional construct. Automatically highly scalable
 		
 	--Messaging and queuing--
-		tightly coupled architecture = single component change = issues
 		
-		loosely coupled = buffer in between with  queing
 		
+<<<<<<< HEAD
 		***Simple Queue Service And Notification Service
 			*SQS: send store receive messages at any volu,messages
 			
@@ -127,8 +126,70 @@
 		--AWS Fargate--
 			Donot need to provision or manage servers
 			
+==AWS global infrastructure==
+	different datacenters
+		high availability and fault tolerance
+		Each region isolated unless you allow
+		data in one region
+		
+	Regions according to where business is
+	- Compliance with regulations ===>  legal and goverment.
+	- Proximity ===> Latency
+	- Feature Availability ====> regions have diff services as new hardware needed
+	- Pricing ===> Brazil = more expensive
+=======
+>>>>>>> parent of ea4772f (update aws)
 	
+	Availibility zone	= mulitple zones in one region. not right next to each other
+		Atleast 2 AZ	ElasticLoadBalance run in all AZ	= Regionally scoped service
 	
+	--Amazon Cloudfront--
+		***content delivery service
+		services to customers everywhere = edge locations
+			Seperate from regions = push content to edge locations
+	**Aws outpost
+			isolated within own building. uses AWS resources so ig on premises deployment
+	*EDGE LOCATIONS RUN AMAZON CLOUDFRONT Stores cached copies of your content
+		closer to customers for faster delivery
+		
+	--AWS management console--
+		Visually command 
+		Test envview aws bills
+		view monitoring
 	
+	manually doing means error possible
+	--AWS CLI--
+		make api calls
+		can make it scriptable and repeatable
+	--AWS SDK--
+		interact through various programming languages
+	--AWS Elastic Beanstalk--
+		- provide code and config
+		
+		-adjust capacity
+		-automatic scaling
+		-Application health monitoring
+			- Takes info and makes env
+			- Save env config
+			- Convenience to not manage and give visibility
+	--AWS CloudFormation--
+	safe repeatable manner
+		-Json and yaml
+			- Storage
+			- ML etc
+==NETWORKING==
+	--Amazon Virtual Private Cloud--
+		local for backend usually
+		Establish boundaries in ur aws resources
+	--VPC--
+		Different subnets
+		some internet reaching places and some only for local networks
+		
+		Public facing traffic = needs an internet gateway
+		
+		Private traffic = Virtual Private Gateway
+			Still sharing resources with others so slowing possible
+	--AWS direct connect--
+		private dedicated private connection
 			
 			

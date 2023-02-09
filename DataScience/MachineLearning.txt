@@ -1,0 +1,75 @@
+TENSOR FLOW
+
+	-Artificial Intelligence: A field of computer science that aims to make computers achieve
+			human-style intelligence. 
+			There are many approaches to reaching this goal, 
+			including machine learning and deep learning.
+			
+===:-== ----Machine Learning---- ==-:===
+	Input and Output Known, rest algorithm needs to be learned.
+	software has algorithm known
+		
+	- Feature — The input(s) to our model.
+	- Labels — The output our model predicts.
+	- Example — A pair of inputs/outputs used during training.
+	
+	- Loss function — 
+		A way of measuring how far off predictions are from the desired outcome. 
+		(The measured difference is called the "loss".)		mean squared error etc
+		lower loss = better (closer out come values)
+	
+	- Optimizer function — 
+		A way of adjusting internal values in order to reduce the loss.
+		This optimization process is called Gradient Descent. adam optimizer
+		
+	- Learning Rate -
+		 This is the step size taken when adjusting values in the model. If the value is too small,
+		 it will take too many iterations to train the model. Too large, and accuracy goes down.
+			
+	- Dense Layer = Fully connected to previous layer
+	
+	- Weight and Biases
+	
+	28x28=784 pixel
+	- Flattening
+		2d image into vector
+	
+	- Activation Function -
+		ReLU gives the network the ability to solve nonlinear problems. 0 for negative max(0,x)
+	- Softmax
+		A function that provides probabilities for each possible output class
+		
+	
+========================
+
+	----Test Data and Training Data----
+	
+	Validation dataset
+	
+	Regression 
+		find 1 number, best result given question   For example, an estimate of a house’s value.
+	
+	Classification = 
+		Confidence an item is of one class, output consisting of data.
+		
+		
+========================
+	----CNN----
+	
+	Invariance
+		Recognition of image in diff positions to recognize stuff
+		
+	Kernel/filter
+		6x6
+			Kernel convolution 3x3 multiply with value selected 
+			sum all of them to make corresponding value for all pixels
+		
+	Padding: Adding pixels of some value, usually 0, around the input image	/Downsampling
+	Max Pooling
+		Reduce size by summarizing regions	
+			Max pooling 2x2 stride 2
+			
+			
+	More epochs = overfitting
+	
+	

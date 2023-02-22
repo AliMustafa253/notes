@@ -119,7 +119,7 @@
 		
 		Docker container based ECS or EKS
 		--ECS--
-			Elastic COntainer Service= scalable supports docker
+			Elastic Container Service= scalable supports docker
 		--EKS--
 			Elastic Kubernetes Service = run Kubernetes on AWS
 		Ur own list or fargate
@@ -184,12 +184,267 @@
 	--VPC--
 		Different subnets
 		some internet reaching places and some only for local networks
-		
 		Public facing traffic = needs an internet gateway
+		virtual private gateway Allows protected internet traffic into VPC
 		
 		Private traffic = Virtual Private Gateway
 			Still sharing resources with others so slowing possible
 	--AWS direct connect--
 		private dedicated private connection
+		
+	network hardenin, application security, user identity, auth and authorization, 
+	ddos prevent, data integrity, encryption
+	
+	--subnet--
+		group resources based on security or operational needs.
+		public(online store site) and private (access via db)
+	
+	---Network Hardening---
+		VPC subnets can control packet info. checklists
+		
+			--Network Access control list (ACL)
+				passport control officer. allow in or not and not allow in VPC.
+				Stateless.
+				default allow all
+				
+			--security group. All ports are blocked in each instance in subnet.
+				multiple ec2 in subnet. Sec group = doorman, check list but wont bother out
+				Stateful.
+				default. allow all inbound deny allow all outbound traffic
+				
+			Instant stateful changing
 			
+	---Global Network---
+		DNS resolver
+		--Amazon Route 53--
+			translate website names into ip which comp can reads
+			direct to different route points
+				- Latency-based routing.
+				- Geolocation DNS.
+				- Geoproximity routing.
+				- Weighted round robin.
+				
+		--Amazon Cloudfront--
+			CDN helps deliver edgelocations acc to geolocation.
 			
+		--DNS--
+			Phonebook of the internet
+			dns resolution is the process of translating domain name to IP
+			
+		--Example--
+		 
+		- customer requests data from the application by going to AnyCompany’s website. 
+		- Amazon Route 53 uses DNS resolution to identify AnyCompany.com’s
+		  corresponding IP address, 192.0.2.0. This information is sent back to the customer. 
+		- The customer’s request is sent to the nearest edge location
+		  through Amazon CloudFront. 
+		- Amazon CloudFront connects to the Application Load Balancer,
+		  which sends the incoming packet to an Amazon EC2 instance.
+			
+===Storage and Databases===
+	--block level storage--
+	store files. series of bytes which is blocks on discs.
+	Hard drive.
+	
+	--Instance Store Volumes--
+		Attached to EC2
+		Removes if EC2 stopped.
+		Useful in temp and scratch data.
+		Dont write data in ec2 instance
+		physically attached
+		
+	--Amazon EBS--
+		-Elastic Block Store
+		-size 
+		-types
+		-config
+		***located at the same AZ as EC2 instances
+		
+		provision and write to volume.
+		EBS Snapshots = regular backups
+			incremental backup
+	--Amazon S3---
+		-Simple storage service.
+		-Store data as objects in buckets
+		each object consists of data, metadata and a key
+		-5Tb
+		-Version Objects, can keep prev ver
+		-create multiple buckets
+		
+		-S3 standard.
+			- 99.999999% durability after one year. freq access data designed 4
+			- Atleast 3 locations stored.
+			- higher cost than others intended for less frequent access data
+		-S3 static website hosting.
+			- html files akin to a file. instant website.
+		-S3 Standard-Infrequent Access
+			- higher retrieval price lower storage price.
+			- Suited for immediate available But infrequent Access.
+			0 infreq ass but high availability. min 3 Availability Zones
+		-S3 One Zone- IA = for ez to reproduce data
+		-S3 Intelligent-Tiering
+			-Unknown or changing access pattern.
+			- Small monthly monitoring and automation fee.
+			- monitors objects' access patterns
+		-S3 Glacier
+			--Glacier Instant Retrieval--
+				works well for archived data req immediate access.
+			--Glacier Flexible Retrieval-- = low cost
+			
+			-Glacier Deep Archive--
+				- Lowest cost object storage class ideal for archiving.
+				- able to retrieve objects within 12 hours.
+				- long-term retention and digital preservation for data.
+				- 3 AZ
+			- Archive data.
+			- create vault
+			- S3 glaciar vault policy and lock glacier. 
+			- 3 options of retrieval.
+			
+		-Amazon S3 Outpots- = on premise AWS outpost. 
+			durably and redundantly
+			good for local data residency req by keeping data close to on premise app
+		
+		-S3 lifecycle management. = allows diff options and config
+	
+	---EBS v.s S3---
+	-16 TB v.s  unlimited Storage.
+	-Solid State v.s not
+	
+	Object = reupload entire file.
+	
+	block storage stores in blocks. = 80gb only edit part of it
+		Best for EBS
+	//S3
+		**Web enabled, Regionally Distributed,
+		**Offers cost savings
+		unlimited storage
+		Severless.
+		Occasional changes and complete objects
+		Write Once Read many
+		object storage so cant break down large objects
+		
+	//EBS
+		Complex,read,right functions = EBS
+		micro changes
+		16 TB
+		Solid State, survive termination of EC2 instance
+		block storage can edit parts
+		
+		
+	---Amazon Elastic File System (EFS)---
+		-On premise datacenter
+			-storage = redundant and backup
+			-EFS allows scaling and replication
+		Multiple instances can asccess the data in EFS at real time.
+		
+		--EBS--
+		EBS attach to EC2 instances
+			AZ level resource. need to be in the same AZ
+			Volumes do not scale
+		--EFS--
+			- multiple instances read and write simultaneously
+			- Linux
+			- Regional resource concurrantly from all AZ whr file sys located
+			- Automatically scales
+		
+		--FILES STORAGE--
+			ideal for use cases in which a large number of services and resources
+			run at the same time.
+			Multiple clients access data stored in shared file folders.
+			storage server uses block storage with local file systems
+	
+	---Amazon RDS---
+		Relational Database Service
+		
+		supports dbs and data Lift and Shift migration
+		
+		-Automated patching
+		-backups
+		-Redundancy
+		-Failover
+		-Disaster Recovery
+		
+	---Amazon Aurora---
+		faster and good for high avialability
+		-MySql PostgreSQL
+		-Data Replication 6 in 3 AZ
+		- upto 15 read replicas
+		- backup to S3
+		
+	---Amazon DynamoDB---
+		No SQL
+		- Severless database
+		- Tables created organized into items with attributes.
+		- Manages data and scalability up and down automatic
+		- millisecond respond time. FAST
+		
+		**Performance and scaling better as no schema like in sql
+		Less rigid and high rate access
+		***Non-relational database. Add remove data
+		Cant run complex SQL queries
+		keys and simpler from one table
+		
+	//RDS//
+		-High Recovery
+		-Customer ownership of data and schema
+		-customer control of network
+		-Business Analytics
+		
+	//DynamoDB//
+		-No schema 
+		-PB size potential
+		-granular API
+		-Key-value
+		-Everything else than business analytics == not complex queries
+		
+	---Amazon Redshift---
+		**used to query and analyze data across a data warehouse
+
+
+		what happened.
+		Velocity read/write functionality at certain questions.
+		data never stops in history as volume and variety
+		
+		**Data warehouses = for these sorts of big data.
+		
+		Data warehouse = best for looking at data back
+		- scalable
+		- single query in exabytes
+		- 10 times higher performance than db
+		
+	---Amazon DMS---
+		Databse Migration Service
+		
+		source and target database
+		- minimize downtime
+		- dont need to be smae types
+		
+		**homogenous = same datatype
+		source = on premises amazon ec2 or amazon rds
+		
+		**heterogenous db = diff types
+		diff data types schema and code 
+			first step to convert code
+			second step migrate data to target
+			
+		- Migration
+		- Development and test db migrations
+			test against production data without users affected. 
+			once off or cont
+		- Database consolidation
+			make multiple db consolidate into one db
+		- Continous database replication
+			send ongoing copies to other target sources 
+			instead of one time migration
+		
+	---Addition db services---
+		- no one size fits all db for all purposes.
+		- Amazon DocumentDB = great for content management,catalogs,user profiles
+		- Amazon Neptune = graph db, recommendation, social networking and frauds
+		- Amazon Managed Blockchain = decentraliztion
+		- Amazon QLDB quantum Ledger db= no db can be removed
+		- Amazon ElastiCache = Db accelerators = caching layers
+			redis and memcached
+		- Amazon DAX = DynamoDB accelerator
+		

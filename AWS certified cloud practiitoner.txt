@@ -471,4 +471,31 @@
 		Root User.
 			permission to do anything in the account.
 			Multi Factor Authentication.
+		
+		---AWS IAM---
+			- default = no permissions cant even log in
+			- give explicit permissions
+			- least priviledge princliple.
+			- IAM policy = json file allows permissions
+				Effect: allow/deny
+				Action: Any AWS API call
+				Resource: What specific resource api call is for
+				
+			- IAM groups = attach policies to a group.
+				All cashiers = granted access to register for eg.
+			- Roles
+				- Associated permissions
+				- Allow or deny
+				- No username or password
+				- Timed
+				- AWS resources external identiities applications or user and aws services
 	
+	---AWS Organizations---
+		central location to manage multiple AWS accounts. Organizational Units (OU)
+		**Can apply to individual member or OU
+			- centralized management.
+			- consolidated billing. can pay for all memberships
+			- Hierachical groupings of accounts. eg aws services for Dev in one OU
+			- AWS service and API actions access control ...allows user control.
+				SCP (service control protocol)
+					place restrictions

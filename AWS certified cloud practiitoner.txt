@@ -467,5 +467,8 @@
 				- Data
 					how access given IAM what services used etc
 			 
-
+	---user permissions and access---
+		Root User.
+			permission to do anything in the account.
+			Multi Factor Authentication.
 	

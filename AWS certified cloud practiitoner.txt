@@ -448,3 +448,24 @@
 			redis and memcached
 		- Amazon DAX = DynamoDB accelerator
 		
+=====Security=====
+
+	---Shared Responsiblity model---
+		- AWS security of cloud
+		- Customers security in the cloud
+		
+		EC2 = AWS 
+				- hypervisor 
+				- network 
+				- physical
+					infrastructor verified via 3rd party
+					network AZ regions edge hardware software
+				
+			  Customer 
+				- OS, AWS cant enter OS, ur OS resp for patches
+				- Application 
+				- Data
+					how access given IAM what services used etc
+			 
+
+	

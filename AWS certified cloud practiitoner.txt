@@ -499,3 +499,108 @@
 			- AWS service and API actions access control ...allows user control.
 				SCP (service control protocol)
 					place restrictions
+	---Compliance---
+		upto compliance to what standards ur business is to
+		in EU thn GDPR and HIPPA in USA if health.
+		built out data centers etc using best security practices.
+		Long compliance list. 
+		region will help. 
+		U own ur data in aws.
+		request documentations for security and compliance.
+		
+			- AWS Artifact
+				on demand access to aws secutiy and compliance reports
+					- AWS Artifact Agreements
+						sign agreement with AWS regarding use of info.
+						review accept and manage agreements for individual accs
+						HIPAA
+					- AWS Artifact Reports
+						compliance reports from third party auditors.
+						up to date. Provide to Auditors or regulators
+						as evidence of AWS security controls.
+						
+			- AWS Customer Compliance Center	
+				read customer compliance stories 
+				whitepapers and documentations. 
+				Auditor learning path. learn more about internal operations
+		
+	---DDOS---
+		overwhelming system to the point it cannot respond
+		Distributed = creates army of zombie bots from other internet devices.
+		UDP Flood = weather forecast = brute force
+			Solution = security groups 
+							weather groups = diff groups
+							UDP Floods shrugged off by aws regions capactiy.
+							Size = impressive
+		HTTP Level Attacks = act like normal customers asking for things
+			Slowloris attack = attacker pretends to have a slow connection
+				ELB region level and scalable = will have to overtake AWS region.
+			
+		---AWS SHIELD WITH AWS WAF---
+			-AWS Shield Standard
+				no cost, analysis techniques to detect malicious traffic in real time.
+				
+			- AWS Shield Advanced
+				Paid, detailed attack diagnostic and detect
+				Integrate with other services and AWS WAF
+			
+			
+		---Additional Security Services---
+			Encryption: Only access by authorized party.
+			
+			Encryption at Rest = idle data. All DynamoDB tables. 
+			---AWS KMS---
+				lock through cryptographic keys. 
+				create,manage and use keys.
+				access which IAM users and roles.
+			
+			---AWS WAF---
+			Web Application Firewall.
+				- Moniter requests coming to web app.
+				- network access control list works similarly.
+				- Web Access Control List (ACL)
+				
+			Encryption at Transit: AWS Service to other (client or service etc)
+				Amazon Redshit and client = data encrypted so safe.
+			---Amazon Inspector---
+				Automated security assessments. security vulnerabilites and deviations.
+				Deviation of best security practices.
+				
+				- Network config reachability piece.
+				- Amazon agent, installable at EC2
+				- Security Assessment Service.
+			
+			Inspector findings or APIs.
+			
+			---Amazon GuardDuty---
+				- Logs and integrated threat intelligence and ML to identify threats.
+				- continously monitoring network activity and acc behaviour
+				- VPC Flow logs and DNS Logs
+				- AWS Lambda functions can take remediation steps to respond to findings.
+				
+				
+	-- Amazon GuardDuty is a service that provides intelligent threat detection for your AWS infrastructure and resources.
+		It identifies threats by continuously monitoring the network activity and account behavior within your AWS environment.
+		
+	-- Amazon Inspector checks applications for security vulnerabilities and deviations from security best practices, such as open access
+		to Amazon EC2 instances and installations of vulnerable software versions.
+		 
+	-- AWS Artifact is a service that provides on-demand access to AWS security and compliance reports and select online agreements.
+	
+===Monitoring and Analytics===
+	Monitoring: observing systems, collecting metrics, then using the data to make decisions.
+	eg scaling event if overused EC2.
+
+	visiblity, degraded exp or order given etc. need monitoring.
+	
+	---Amazon CloudWatch---
+		Monity and manager and configure alarm actions based on **metrics
+		alert via CloudWatch Alarm. trigger action after achieved condition.
+			eg ec2 instance stopping cpu % below certain threshold
+		Dashboard feature. Auto Refresh.
+		
+		- Central location for metrics access.
+		- visiblity into app,infrastructure and servers.
+		- reduce MTTR and improve TCO (mean time to r)
+		- Drive insights to optimize app and operation resources.
+	

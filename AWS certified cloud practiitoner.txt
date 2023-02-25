@@ -594,7 +594,7 @@
 	visiblity, degraded exp or order given etc. need monitoring.
 	
 	---Amazon CloudWatch---
-		Monity and manager and configure alarm actions based on **metrics
+		Moniter and manager and configure alarm actions based on **metrics
 		alert via CloudWatch Alarm. trigger action after achieved condition.
 			eg ec2 instance stopping cpu % below certain threshold
 		Dashboard feature. Auto Refresh.
@@ -604,3 +604,241 @@
 		- reduce MTTR and improve TCO (mean time to r)
 		- Drive insights to optimize app and operation resources.
 	
+	---Amazon CloudTrail---
+		API auditing tool.
+		Every request is logged in cloudtrail.
+		When who when how and what state change etc
+			apply filter to check
+		save logs indefinitely
+		CloudTrail Insights. 
+		   allows cloudtrail to automatically detec unusual APIS
+		
+	---AWS trusted advisor---
+		Automated advisor. evaluated ur resources.
+			- Cost optimization
+			- Performance
+			- Security
+			- Fault Tolerance
+			- Service Limits
+			
+		eg MFA authentication not on it will notify. ETC
+		red cirlce = action recommended. 
+		orange triangle = look into
+		green = ok
+
+===AWS Pricing and Support===
+	---Free tier---
+		Always Free
+				lambda = 1 million invocations per monthly
+				compute savings plan
+		12 Months Free
+				S3 12 months free 5gb storage
+				compte time used. And use Spot instances/Savings plans
+							interruptions ok = 90% cost savings
+		Trials
+				Lightsail 1 month trial of 750 hours of usage
+
+	---Pricing---
+		Pay for what you use
+		Pay less when you reserve
+		Pay less with volume-based discounts when you use more
+		
+	---AWS pricing calculator---
+		estimate costs AWS estimates by groups available
+		
+		Amazon S3
+			Storage,Requests and data retrievals,data transfer
+			Management and replication.
+			
+	---Billing Dashboard---
+		month to date usage etc bills cost broken down to regions 
+		compare view month-to-date spend/frie tier---
+		Access cost , Purchase and manage savings plan, publish AWS cost.
+	
+	---Consolidated Billing---
+		Bill Organization not one account. AWS Organizations.
+		Can view what account spent what. Can share bulk discounts
+		EG S3 service 3 accounts lower than 10 TB threshold 
+		but together more so can get discount
+	
+	---AWS Budget---
+		Custom budgets for cost and usage. **Updates 3 times a day
+		notify at for eg 80%
+		
+	---AWS Cost Explorer---
+		which services u spend the most money on and track money from last 12 months default 6
+		group/filter by tags
+		can take action when necessary to curb spending
+		
+	---AWS support plans---
+		- Basic Support
+			24/7 customer service
+			Documentation
+			Whitepapers
+			Forums
+			AWS trusted Advisor
+			
+		- Developer support
+			Basic Support
+			Email reply service.
+			best practice guidance
+			
+		- Business Support
+			previous
+			All trusted advisor provides full set of best practice checks
+			Direct phone access to cloud support engineers
+			Infrastructure event management = plan for massive events.
+			
+		- Enterprise Support
+			previous
+			15  min SLA business critical workloads
+			Technical Account Manager (TAM)
+		
+		---TAM---
+			support team monitoring
+			and provide infrastructure event management
+			check Architecture reviews. 5 pillars
+				Operation Excellence
+				Security
+				Reliability
+				Performance Efficiency
+				Cost Optimzation
+			Holistically how help them improve as well. acc to specific needs
+			
+		---AWS Marketplace---
+			manage and find 3rd party softwares
+			
+			- Total cost reduced 
+			- click deployment right when u need them.
+			- Annual license creditted for AWS delpoyment mostly
+			- Pay as you go options.
+			- Free trials.
+			
+			Custom terms and pricing
+			A private marketplace
+			integration into ur procurement systems.
+	
+===Migration and Innovation===
+	---AWS CAF---
+		Cloud Adoptation Framework
+			helps manage migration process.
+			6 areas focused on diff ppl dev etc
+			Business	business model integrates IT strat
+			People		HR
+			Governance
+			Platform	cloud prog
+			Security
+			Operations	
+		
+		-AWS CAF Action Plan for 
+		
+	---6 Rs of Migration---
+	
+		After Discovery Phase and know what u have in ur existing environment
+		
+		- Rehosting
+			move products as is upto 30% cost save
+			ez to optimize proudct after cloud
+		- Replatforming
+			A few cloud optimizations to realize tangible benefits
+			Without changing core architecture of app
+			MySQL replatform to RDS MySQL or Amazon Aurora---
+			No code changes 
+		- Retire
+			Application no longer being used 
+			end of life of applications 
+		- Retain
+			Deprecated almost 3-6 months but why?
+			Only do what works for business These 2 dont move
+			Critical for business may req refactor etc
+		- Repurpose/Repurchasing
+			Remove legacy and out of date vendor removed.
+			trad license to saas license
+			Potential benefits could be beneficial
+		- Refactoring
+			Write new code. Strong business need to add features
+			add performance not possible normally.
+			Most expensive
+			
+	---AWS Snow Family---
+		Physical devices that transport data.
+		1 GBPS moves 1PB in 100days
+		---AWS Snowcone---
+			Edge computing. EV2 IoT Greenglass
+			8Tb of data
+			Plug data and send it back.
+			TB of data transfer.
+		---SnowBall Edge---
+				Storage optimized
+					Large scale data migration
+					80TB 1TB SSD
+				
+				Compute Optimized
+					powerful computing resources for ML motion video analysis and anyltics
+					42TB 7.68TB SSD 208GN mem 52 vCPUs
+			Clustered
+			and can use AWS Lambda functions.
+			Iot Dives industrial signalling
+		---AWS Snowmobile---
+			45 foot trucking container
+			100PB trucks.
+			24/7 video survailance.
+			
+		secure and tamper resistance.
+		Key management service.
+	
+	---innovation with aws---
+		VMware cloud on aws
+		ML and AI services pretrained AI services.
+		
+		---Amazon SageMaker---
+			ML models
+		---Amazon Augmated AI A2I---
+		---Amazon Lex---
+			Alexa
+		---Amazon Transcribe---
+			Speech to text
+		---AWS DeepRacer---
+			Reinforcement Learning
+		---AWS Ground Station---
+			Satelites.
+	
+	
+	---Severless Applications---
+	With AWS, serverless refers to applications that don’t require you
+	to provision, maintain, or administer servers. 
+	You don’t need to worry about fault tolerance or availability. 
+	AWS handles these capabilities for you.
+
+===The Cloud Journey===
+	---AWS Well-Architected Framework---
+	AWS management console
+	Green Orange and Red
+	
+	Operational Value
+		Automated Changes , 
+		business value
+		deliver continually improving supp processes and procedures
+	Security
+		Integriy and encryption
+	Reliability
+		Recover from infrastructure disruptions
+		Dynamically acquire computing resources
+	Performance Efficency
+		computing resources efficiently to meet sys req
+	Cost Optimization
+		Over Estimated EC2 size
+	Systainability
+		reducing energy consumption and inc efficiency in all components by maximsing benefits 
+		Understand impact, establish sustainiblity goals, max utilizaiton, reduce downstream
+		
+	---Benefits of AWS Cloud---
+	AWS services 
+	Terminology
+	
+	****6 main Benefits
+		- costs = physical space hardware staff overhead for data centers
+				 fixed costs
+				 
+				 Save money by
+		- 

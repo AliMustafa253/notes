@@ -1,3 +1,3 @@
 # notes
 
-Various different notes of aws etc
+Various different notes etc

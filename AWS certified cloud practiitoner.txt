@@ -840,5 +840,5 @@
 		- costs = physical space hardware staff overhead for data centers
 				 fixed costs
 				 
-				 Save money by adding
+				 Save money by adding  
 		- 

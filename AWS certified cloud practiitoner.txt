@@ -837,8 +837,38 @@
 	Terminology
 	
 	****6 main Benefits
-		- costs = physical space hardware staff overhead for data centers
+		- Trade upfront expenses for variable expense
+				include physical servers data centers etc
+				costs = physical space hardware staff overhead for data centers
 				 fixed costs
-				 
-				 Save money by adding  
-		- 
+				 more or less costs so diff bill acc to what u use
+				 Save money by 
+					tunring off unused instances
+					delete old resources
+					optimize app
+					recieve recommnedation from aws trusted advisor
+					
+		- Benefit from massive economy of scale
+			Huge hardware and massive volume so
+			lower variable cost compared to getting it on ur own.
+			
+		- Stop guessing capacity
+			= guessing could be higher than estimated users or lower.
+			provision resources you need for now 
+			scale up and down
+			scaling can take days/weeks
+			
+		- Increase Speed and Agility.
+			spin up test env
+			run experiments
+			delete resources
+			stop incurring costs.
+				db weeks in aws seconds
+		
+		- stop spending money running datacenters
+			lets u focus on what makes ur product better
+			
+		- Go global in minutes
+			Based in US but want to spread to germany
+				AWS replicates architecture to a region in germany.
+				AWS CloudFormation.

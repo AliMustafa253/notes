@@ -90,16 +90,30 @@
 		
 		regional construct. Automatically highly scalable
 		
-	--Messaging and queuing--
-		
-		
-<<<<<<< HEAD
+	---Async Communication b/w applications---
+		decouple apps
+		--Messaging and queuing--
+
 		***Simple Queue Service And Notification Service
-			*SQS: send store receive messages at any volu,messages
+		
+		---SQS---
+			queue model
+			send store receive messages at any volume,messages
+			oldest AWS offering
+				default retention 4 days max 14 days
+				no limit on number
 			
-			*SNS: publish/subscription service. messages and notifications, 
+		---SNS--- 
+			publish/subscription service. messages and notifications, 
 			channel messages etc 2 different method
-				
+		
+		---Amazon Kinesis---
+			real-time big data streaming
+			managed service to collect,process and analyze real time streaming data at any scale
+		
+		---Amazon MQ---
+			on premise trad apps
+			
 		Monolothic Architecture = tightly coupled can break down
 		Microservices = loosely coupled AWS allows microservices 
 		
@@ -137,17 +151,21 @@
 	- Proximity ===> Latency
 	- Feature Availability ====> regions have diff services as new hardware needed
 	- Pricing ===> Brazil = more expensive
-=======
->>>>>>> parent of ea4772f (update aws)
 	
 	Availibility zone	= mulitple zones in one region. not right next to each other
 		Atleast 2 AZ	ElasticLoadBalance run in all AZ	= Regionally scoped service
-	
+	---Route 53---
+		global DNS
+		
 	--Amazon Cloudfront--
 		***content delivery service
+		DDOS protection
+		replicate part of ur application to edge locations 
+		cache common requests
 		services to customers everywhere = edge locations
 			Seperate from regions = push content to edge locations
 	**Aws outpost
+			Hybrid Cloud
 			isolated within own building. uses AWS resources so ig on premises deployment
 	*EDGE LOCATIONS RUN AMAZON CLOUDFRONT Stores cached copies of your content
 		closer to customers for faster delivery
@@ -165,7 +183,8 @@
 		interact through various programming languages
 	--AWS Elastic Beanstalk--
 		- provide code and config
-		
+		- only application code responsiblity of developers
+		deploy web applications
 		-adjust capacity
 		-automatic scaling
 		-Application health monitoring
@@ -173,10 +192,33 @@
 			- Save env config
 			- Convenience to not manage and give visibility
 	--AWS CloudFormation--
-	safe repeatable manner
+		safe repeatable manner
 		-Json and yaml
 			- Storage
 			- ML etc
+		- declarative way of outlining ur aws infrastructure for any resource.
+		- changes to infrastructure reviewed thru code
+			
+=============================
+	---AWS OpsWork---
+		perform server configurations
+		alternative to SSM which manages EC2 and onpremise systems
+		***If chef or puppet needed then use AWS OpsWork
+	---Amazon API Gateway---
+		fully managed service for developers to create publish maintain secure APIs
+		Serverless and scalable
+	---AWS batch---
+		fully managed batch processing at any scale
+		run on ECS cost optimzation and focusing less on infrastructure
+		Rely on EBS/ instance store for disk space
+	
+	---Amazon Lightsail---
+		Virtual servers,storage,db and networking
+		low predictable pricing.
+		simple web app
+		high availability
+
+		
 ==NETWORKING==
 	--Amazon Virtual Private Cloud--
 		local for backend usually
@@ -187,12 +229,14 @@
 		Public facing traffic = needs an internet gateway
 		virtual private gateway Allows protected internet traffic into VPC
 		
+		VPC peering connect 2 vpc VPC flow log
+		
 		Private traffic = Virtual Private Gateway
 			Still sharing resources with others so slowing possible
 	--AWS direct connect--
 		private dedicated private connection
 		
-	network hardenin, application security, user identity, auth and authorization, 
+	network hardening, application security, user identity, auth and authorization, 
 	ddos prevent, data integrity, encryption
 	
 	--subnet--
@@ -211,9 +255,18 @@
 				multiple ec2 in subnet. Sec group = doorman, check list but wont bother out
 				Stateful.
 				default. allow all inbound deny allow all outbound traffic
+				You can change a Security Group associated with an instance if the
+				instance is in the running state.
 				
 			Instant stateful changing
-			
+	---AWS privateLink---
+		- most scalable and secure way to expose service to 1000s of VPC
+		- Require network load balancer
+		- no VPC peering and internet gateway etc req
+	---Transit Gateway---
+		Connect thousaNDS OF vpc TOGETHER
+	---Client VPN---
+		OpenVPN connection from pc to VPC
 	---Global Network---
 		DNS resolver
 		--Amazon Route 53--
@@ -252,29 +305,40 @@
 		Useful in temp and scratch data.
 		Dont write data in ec2 instance
 		physically attached
+		U RESPONSIBLE FOR STOERAGE URSELF
 		
 	--Amazon EBS--
 		-Elastic Block Store
 		-size 
 		-types
 		-config
+		-Survive terminations
+		-16TB
 		***located at the same AZ as EC2 instances
+		
+		-Files are stored in blocks
 		
 		provision and write to volume.
 		EBS Snapshots = regular backups
 			incremental backup
 	--Amazon S3---
 		-Simple storage service.
-		-Store data as objects in buckets
+		-Store data as objects in buckets ('directories')
 		each object consists of data, metadata and a key
 		-5Tb
 		-Version Objects, can keep prev ver
 		-create multiple buckets
 		
+		
+		***Unlimited
+		***Serverless
+		-All files are objects
+		
 		-S3 standard.
 			- 99.999999% durability after one year. freq access data designed 4
 			- Atleast 3 locations stored.
 			- higher cost than others intended for less frequent access data
+			- Big Data Analytics
 		-S3 static website hosting.
 			- html files akin to a file. instant website.
 		-S3 Standard-Infrequent Access
@@ -283,33 +347,42 @@
 			0 infreq ass but high availability. min 3 Availability Zones
 		-S3 One Zone- IA = for ez to reproduce data
 		-S3 Intelligent-Tiering
+			moves automatically in between tiers
 			-Unknown or changing access pattern.
 			- Small monthly monitoring and automation fee.
 			- monitors objects' access patterns
 		-S3 Glacier
 			--Glacier Instant Retrieval--
 				works well for archived data req immediate access.
+				-min storage duration of 90 days
 			--Glacier Flexible Retrieval-- = low cost
 			
 			-Glacier Deep Archive--
 				- Lowest cost object storage class ideal for archiving.
-				- able to retrieve objects within 12 hours.
+				- able to retrieve objects within 12 hours. 
 				- long-term retention and digital preservation for data.
 				- 3 AZ
 			- Archive data.
 			- create vault
 			- S3 glaciar vault policy and lock glacier. 
 			- 3 options of retrieval.
-			
+		
+		-S3 Encryption
+			Server-Side and Client-Side
 		-Amazon S3 Outpots- = on premise AWS outpost. 
 			durably and redundantly
 			good for local data residency req by keeping data close to on premise app
 		
 		-S3 lifecycle management. = allows diff options and config
 	
+	---AWS Storage Gateway---
+		bridge between on premise data and cloud data in S3
+
 	---EBS v.s S3---
 	-16 TB v.s  unlimited Storage.
 	-Solid State v.s not
+	occassional changes = S3 
+	complex = EBS
 	
 	Object = reupload entire file.
 	
@@ -336,7 +409,9 @@
 		-On premise datacenter
 			-storage = redundant and backup
 			-EFS allows scaling and replication
-		Multiple instances can asccess the data in EFS at real time.
+			
+		*** IDEAL WHEN Multiple instances can asccess the data in EFS at real time.
+		***MULTIPLED AZ
 		
 		--EBS--
 		EBS attach to EC2 instances
@@ -356,7 +431,8 @@
 	
 	---Amazon RDS---
 		Relational Database Service
-		
+		Multi AZ
+		Read replicas = scalability upto 5 ---> others replicate data for read
 		supports dbs and data Lift and Shift migration
 		
 		-Automated patching
@@ -367,10 +443,15 @@
 		
 	---Amazon Aurora---
 		faster and good for high avialability
+		**5x MySql and 3x performance of PostGres on RDS
+		-Cost more than RDS but more efficient
 		-MySql PostgreSQL
 		-Data Replication 6 in 3 AZ
 		- upto 15 read replicas
 		- backup to S3
+	---DocumentDB---
+		AWS implementation of MongoDB (like Aurora is of MySql
+		Similar to aurora, 3 AZ
 		
 	---Amazon DynamoDB---
 		No SQL
@@ -397,6 +478,9 @@
 		-granular API
 		-Key-value
 		-Everything else than business analytics == not complex queries
+			DynamoDB Accelerator - DAX
+				10x performance improvement. milisec to microsec latency
+				ElastiCache for other DB while DAX for DynamoDB
 		
 	---Amazon Redshift---
 		**used to query and analyze data across a data warehouse
@@ -412,6 +496,32 @@
 		- scalable
 		- single query in exabytes
 		- 10 times higher performance than db
+	
+	---Amazon EMR---
+		Elastic MapReduce
+			helps creating Hadoop Clusters (Big Data) to analyze vast data
+			supports apache spark hbase presto flink etc.
+			takes care of all provisioning and config.
+			Auto Scaling 
+			Data Processing, ML , web indexing
+			
+	---Amazon QuickSight---
+		Severless ML powered business intellignce service to create interactive dashboards
+			-Fast automatically scalable,
+			-Business analytics
+			-Building visualizations.
+			-Perform Ad-hoc analysis
+			-Business insights using data.
+	---Amazon Athena---
+		severless query service to naalyze data stored in S3
+		SQL to query files
+		Business Intelligence/analytics/reporting
+		***ANALYZE DATA IN S3 USING SEVERLESS SQL USE ATHENA
+		
+	---AWS Glue---
+		Managed Extract transform and load service ((ETL)
+			The AWS Glue Data Catalog is a central repository to store structural
+			and operational metadata for all your data assets.
 		
 	---Amazon DMS---
 		Databse Migration Service
@@ -445,7 +555,7 @@
 		- Amazon Managed Blockchain = decentraliztion
 		- Amazon QLDB quantum Ledger db= no db can be removed
 		- Amazon ElastiCache = Db accelerators = caching layers
-			redis and memcached
+			redis and memcached	Cache = faster read write
 		- Amazon DAX = DynamoDB accelerator
 		
 =====Security=====
@@ -569,9 +679,16 @@
 				- Network config reachability piece.
 				- Amazon agent, installable at EC2
 				- Security Assessment Service.
-			
+				***only for EC2 And containers infrastructure
+				
 			Inspector findings or APIs.
 			
+			---AWS config---
+				auditing and recording
+				per region
+			---AWS artifact---
+				on demand access to aws documentation and aws agreements
+				support audit or compliance
 			---Amazon GuardDuty---
 				- Logs and integrated threat intelligence and ML to identify threats.
 				- continously monitoring network activity and acc behaviour
@@ -586,7 +703,13 @@
 		to Amazon EC2 instances and installations of vulnerable software versions.
 		 
 	-- AWS Artifact is a service that provides on-demand access to AWS security and compliance reports and select online agreements.
-	
+	---AWS Security Hub---
+		Central security tool to manage security across several AWS accounts and
+		automate security checks
+		Integrated dashboards showing
+	---Amazon Detective---
+		Identify root cause of security issue
+		
 ===Monitoring and Analytics===
 	Monitoring: observing systems, collecting metrics, then using the data to make decisions.
 	eg scaling event if overused EC2.
@@ -603,6 +726,11 @@
 		- visiblity into app,infrastructure and servers.
 		- reduce MTTR and improve TCO (mean time to r)
 		- Drive insights to optimize app and operation resources.
+		
+		---Cloudwatch alarms---
+		
+		---Amazon Eventbridge---
+			schedule script - event pattern - trigger lambda
 	
 	---Amazon CloudTrail---
 		API auditing tool.
@@ -612,6 +740,12 @@
 		save logs indefinitely
 		CloudTrail Insights. 
 		   allows cloudtrail to automatically detec unusual APIS
+		   
+	---AWS X-ray ---
+		visual analysis of application
+	---Amazon CodeGuru---
+		ML auto code review ===> Reviewer
+		and recommended apps ===> Profiler
 		
 	---AWS trusted advisor---
 		Automated advisor. evaluated ur resources.
@@ -625,6 +759,7 @@
 		red cirlce = action recommended. 
 		orange triangle = look into
 		green = ok
+	
 
 ===AWS Pricing and Support===
 	---Free tier---
@@ -654,7 +789,11 @@
 		month to date usage etc bills cost broken down to regions 
 		compare view month-to-date spend/frie tier---
 		Access cost , Purchase and manage savings plan, publish AWS cost.
-	
+	---SCP---
+		service control policy
+		
+		explicit Allow (not allow on default)
+		Whitelist or blacklist IAM actions
 	---Consolidated Billing---
 		Bill Organization not one account. AWS Organizations.
 		Can view what account spent what. Can share bulk discounts
@@ -688,6 +827,7 @@
 			All trusted advisor provides full set of best practice checks
 			Direct phone access to cloud support engineers
 			Infrastructure event management = plan for massive events.
+			ability to select alarms
 			
 		- Enterprise Support
 			previous
@@ -723,9 +863,12 @@
 		Cloud Adoptation Framework
 			helps manage migration process.
 			6 areas focused on diff ppl dev etc
+			
 			Business	business model integrates IT strat
+				Use the Business Perspective to create a strong business case for cloud adoption
 			People		HR
 			Governance
+				minimize business risk
 			Platform	cloud prog
 			Security
 			Operations	
@@ -763,6 +906,13 @@
 	---AWS Snow Family---
 		Physical devices that transport data.
 		1 GBPS moves 1PB in 100days
+		can run ec3 and lambda functions using IoT Greenglass
+		---AWS OpsHub---
+			Manage Snow Family Devices
+				-device metrics
+				-tranfer files
+				-compatible aws services run
+			
 		---AWS Snowcone---
 			Edge computing. EV2 IoT Greenglass
 			8Tb of data
@@ -786,6 +936,8 @@
 			
 		secure and tamper resistance.
 		Key management service.
+	--Edge Computing--
+		Process data created in edge locations.
 	
 	---innovation with aws---
 		VMware cloud on aws
@@ -815,7 +967,7 @@
 	AWS management console
 	Green Orange and Red
 	
-	Operational Value
+	Operational Value/Excellenece
 		Automated Changes , 
 		business value
 		deliver continually improving supp processes and procedures
@@ -828,7 +980,7 @@
 		computing resources efficiently to meet sys req
 	Cost Optimization
 		Over Estimated EC2 size
-	Systainability
+	Sustainability
 		reducing energy consumption and inc efficiency in all components by maximsing benefits 
 		Understand impact, establish sustainiblity goals, max utilizaiton, reduce downstream
 		
@@ -872,3 +1024,57 @@
 			Based in US but want to spread to germany
 				AWS replicates architecture to a region in germany.
 				AWS CloudFormation.
+
+	Elasticache
+		improves read times of ur databases 
+Stephane course slides
+page 54
+
+AWS trusted advisor
+
+S3 Types
+
+Storage
+
+managements and secooty IAAS ETC bhi dekh lena
+
+Changing the AWS Support plan 
+
+	shield = DDOS
+	Guard Duty = Intelligent services for protect
+
+	AWS Artifact == security compliance management
+		AWS Artifact is a web service that enables you to download AWS security and compliance documents
+		such as ISO certifications and SOC reports
+		
+	---AWS Budgets---
+		lets you set custom alerts that will notify you
+		when your service usage exceeds (or is forecasted to exceed)
+		the amount that you have budgeted.
+		
+	Instance stores are ideal for temporary data that
+	does not need to be kept long term. 
+	
+Customer Gateway =  @ ursite
+
+A VPC peering connection is a networking connection between two VPCs
+
+AWS Service Catalog allows organizations to create
+and manage catalogs of IT services that are approved for use on AWS.
+
+Network ACL is a stateless firewall working on IPs, not users.
+Security group is stateful
+
+	---Amazon Elastic Transcoder---
+		lets you convert media files that you have stored in (Amazon S3)
+		into media files in the formats required by consumer playback devices.
+
+	---Amazon QuickSight ---
+		is a very fast, easy-to-use, cloud-powered business analytics service
+
+	---AWS Infrastructure Event Management (IEM)---
+		offers architecture and scaling guidance
+		
+	---AWS Storage Gateway---
+		is a set of hybrid cloud storage services that provide on-premises access
+		to virtually unlimited cloud storage.

@@ -1,0 +1,59 @@
+Issue: individual item
+
+Project: a collection of jira issues
+	Long name and shortname
+	Key
+	
+Issue type:
+	eg epic,story,bug
+	
+board: status based view of issues
+
+Dashboard: statistic based view of issues
+
+Query: question use JQL
+	Filter
+	
+Agile: iterative and collaborative process for rapid development
+	scrum = in intervals
+	kanban =  to deliver continously
+	bugs tracking
+
+DevOps: collab between dev and operations
+
+	Team Managed:
+		configured by end users
+		simple
+		basic permissions
+		
+	Company Managed:
+		Configured by admins
+		Advanced 
+		
+		
+====Issue Types=======
+
+Epic: Big Goals with smaller issues
+	Epic Name: unique identifier
+	
+Story: requirement written as a user goal
+	As a x I want y so that I can z
+	
+	Story Points
+	
+	Epic link: link to an epic
+	
+	Linked Issue: association with other issue
+
+Sprint: time boxed iteration
+
+Fix Version: grouping issue for a specific issue
+
+Bug: problem, erorr, defect
+
+Task: simple representation of something that needs to be done
+	task = non coding or smthn valuable in sum companies
+		time estimate
+	stories = coding etc
+
+subtask: smalelst piece of work

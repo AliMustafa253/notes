@@ -1,0 +1,11 @@
+What's AWS?
+
+	On demand services.
+	
+	
+================
+
+can skip 3,4,5 and 12
+
+--AWS Regions--
+	region = cluster of data centers

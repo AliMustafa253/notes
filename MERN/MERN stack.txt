@@ -1,0 +1,150 @@
+MERN
+	
+	----React----
+		Client side library allowed you to build reactive UI
+			Render UI with dynamic Data
+			Handle User Input
+			Communicate with Backend Services
+
+	----Node----
+		run js outside browser. Generally for server-side programming language
+		
+		listen to req and send response. 
+		Execute server-side logic
+		interact with db
+	
+	----Express----
+		Framework simplifying server-side code and logic.
+		
+			Middleware based: funnel req through functions
+			routing view rendering etc
+			
+	----MongoDB----
+		NoSQL DB documents in collections instead of records in tables.
+		
+			Store app data.
+			No Schema required.
+			easy to connect to node/express (dont connect to react for security)
+		
+		files should be stored in a file system
+		other data like user user id etc in mongodb
+		connected to server as db credentials required. frontend data = reaadable by users so
+		insecure
+			
+	Frontend User Input Validation
+	Backend User Input Validation
+	
+	request and responses = AJAX 
+		exchange data in formats like JSON, 
+		
+	
+	=====Backend=====
+	
+		Backend == API
+		
+		---REST V.S GraphQL API---
+			---REST (representational state transfer)---
+				Uses Urls + http Verbs for different actions
+				
+				API is stateless and decoupled from any frontend
+				Can use on any frontend
+				
+				developers allow endpoints.
+				POST GET PUT PATCH DELETE OPTIONS
+				
+				
+			
+			---GraphQL---
+				one URL + http Verbs (=one endpoint)
+				accepts query commands via query language
+				
+				Query expression
+		
+				API is stateless and decoupled
+
+				Extra Query Language to learn
+					
+					ONE SINGLE ENDPOINT
+						POST /graphql eg
+							request body = query request
+								{ query { user (identifier operation "endpoint") { requested fields}
+								}}
+			
+	Connect React and SPA with apis or can take all react req
+	via server-side rendered pages via ejs,pug etc. Otherwise seperated
+	
+	
+====Planning the app====
+	
+	--Idea--
+		solve a problem/ come up with an idea.
+		Create a design/sketch
+		Plan your data models (the data you'll work with)
+		Plan your endpoints (API,backend) and pages
+		
+		---Frontend design (lowfi etc)---
+			/ List of Users										Always reachable
+			/:uid/places/	List of Places for selected User	//
+			/authenticate	signup + Login Forms				Only UnAuth
+			/places/new		New Place Form						Authenticated
+			/places/:pid	Update Place Form					Authenticated
+		
+		---Application Data---
+			User
+				Name
+				Email
+				Password
+				Images
+			
+			Places
+				Title
+				Description
+				Address
+				Location
+				Image
+			One to many relationship with user and place
+			
+		API endpoints
+			/api/users/
+			GET../		POST../signup 	POST ../login
+			/api/places/..
+			GET ../user/:uid	GET ../:pid	POST ../	PATCH ../:pid	DELETE ../:pid
+			
+			
+			
+=====React=====
+
+	JS library for building user interfaces.
+		started an huge eco system "psuedo framework"
+		
+		Declarative Approach(React): You define the result not the steps that lead to it
+			imperative approach (normal js): you define all the steps
+			
+		Components
+		JS runs on browser things run immediately as everything is already there.
+
+		One html page served from some server.
+		React re renders = SPA
+			Routes (react-router-dom)
+				route config + page components
+			State Management (Hooks,Redux)
+				hooks,redux logic
+			Components + Styling
+				utility,ui components
+				
+	---JSX---
+		similar to React.createElement('h1',{},"text")
+		return <h2> </h2>
+		html like code inside js
+		
+	---components---
+		Functional components = modren way to use react.
+		Function = pure js function returns jsx
+					cant be kept alive
+					Stateless, simply accept data and display them
+					No lifecycle methods
+		
+		Class = extends react and render function used return jsx
+				runs at diff lifecycles
+				Stateful, implement logic and state
+				Lifecycle methods can be used

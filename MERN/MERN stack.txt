@@ -136,6 +136,7 @@ MERN
 		similar to React.createElement('h1',{},"text")
 		return <h2> </h2>
 		html like code inside js
+		{} merge jsx with some js functionality
 		
 	---components---
 		Functional components = modren way to use react.
@@ -148,3 +149,42 @@ MERN
 				runs at diff lifecycles
 				Stateful, implement logic and state
 				Lifecycle methods can be used
+				
+		Capital letter = custom Component 
+		
+	---Prop---
+		use map to convert each list item to jsx.
+		React uses the key prop create a relationship between the component and the DOM element.
+		The library usesthis relationship to determine whether or not the
+		component should be re-rendered.
+		
+		--Callback Function--
+			to go from child component to parent component
+			
+			call pointer to function to new component
+			will call the function in parent component
+		
+	---Event---
+	event.preventDefault();
+		prevent request to backend. if only serves single html file here
+	The event.preventDefault() method stops the default action of an element from 
+	happening. e.g
+		Prevent a submit button from submitting a form
+		Prevent a link from following the URL
+		
+		
+	---State--- Hook
+	**Re render only happens when state changes. YOU HAVE TO TELL. ignore otherwise
+	
+		Functional components use hook components to manage data
+		manage state to re render
+	
+	const [state,setState] = useState([{test:'1', text:'dummy'}])
+	
+	*Schedules state update in setState. Update queue. So pass function instead of concat.
+	function = guarantee order etc
+	***State update depends on previous state data = use Function
+	
+	
+		
+	

@@ -1,0 +1,181 @@
+====JAVA=====
+	
+	---JDBC---
+		manually translate code to relational tables and back again
+		no in JPA
+		classes for connection to db and queries etc.
+		supports like select join etc
+		expose all functions etc
+		
+		bridge b/w java and db
+		
+	---JPA---
+		Interface
+		
+		Java objects outlive the application process that
+		created them.
+		Specification allows you to map between objects in code
+		and db
+		Hides sql from developers as you can use java annotations.
+		
+		not a framework but set of concepts/ JUST A SPECIFICATION.
+		
+		--Spring Data JPA---
+			Reduce boilerplate for various db
+			Extra layer of abstraction on hibernate(default) etc.
+			
+			interface made by you. Out of the box basic functionalities given.
+			
+		
+	---Hibernate---
+		implementation of the interface
+		
+		Tool to use JPA etc
+		
+	---Apache Tomcat---
+		Java web application server
+		
+		
+	---Maven---
+		build system
+		
+	---Gradle---
+		
+		
+		
+	===PostgreSQL v.s MySQL===
+		--Similarity--
+			RDBMS
+			Sql
+			Json
+		
+		PostgreSQL
+			Object-relational db
+			enterprise applications
+			Online transaction processing
+			OLTP
+				Business activities like 
+				e-commerce and financial ledgers.
+			Performance and Scalability
+			MVCC
+			multiple concurrency support
+			
+		MySQL
+			Smaller scale web app
+			easy to use.
+			speed
+			scalability
+			
+	
+
+====Spring====
+
+Framewok for providing comprehensive infrastructural support
+
+OOP practices built in.
+
+	Spring meaning = diff.
+		POJO plain old java object
+		Java Beans getter and setters
+		
+		---BeanFactory---
+			The 'beans' of JavaBeans are classes that encapsulate
+			one or more objects`private instance variables and public getter/setter
+			no arg constructor.
+			
+			into a single standardized object (the bean).
+			
+			BeanFactory represents a basic IoC container
+			which is a parent interface of ApplicationContext.
+		
+		---IOC Inversion of Control---
+			Mechanism of dependency injection.
+			Application Context wraps the bean factory which serves beans
+			at runtime of the application.
+				
+				Spring Boot
+					Auto Configuration of App Context. Configure beans urself
+					
+			Maintains class dependencies
+			Objects injected at runtime as needed.
+			
+			Traditional Dependency
+				Main --> new class that needs to be mentioned ---> need to know
+				multiple levels deep knowledge of things.
+			
+			IoC Dependency management
+				IoC container ---> everything from main
+					everything else is pointer and injected into parent class
+					
+				**The container creates and maintains dependencies.
+				
+			Spring IoC
+				Bean Factory not directly interacted with ---> use hooks if needed
+				App Context can be interacted with but not needed. Used in beans
+				References
+				Anaylsis of construction proper order dep on beans etc.
+				
+		---Annotation---
+			Java language 
+			Metadata for your code.
+				Compiler or runtime instructions
+				
+				used for point cuts
+				Add functionalities using that as proxies
+				
+		---Proxies---
+			Beans in bean Factory Proxied
+			Annotations dtrive proxies
+			Annotations are easy extension points.
+			Called through proxies itself to be added.
+			
+			Proxies are applied to public class interfaces, even if an interface
+			isn't defined, so direct method invocation
+			from within the class does not utilize the proxy or its behavior.
+			
+			---Spring Data---
+				common set of interfaces using JPA
+			
+====SpringBoot====
+
+	Embedded tomcat (web app support)
+		Diff than JVM files. App Server in jar file.
+	Auto Configuration of Application Context.
+	Automatic Servlet Mappings
+	DB support and Hibernate/JPA dialect
+	Automatic Controller Mappings
+		default opionated config.
+			can change
+		Bean Factory
+		Configuration on presence.
+	
+	Rapid Application Development
+	Removes boilerplate of application Setup
+	Cloud Native support but also traditional
+	
+	
+	
+java -jar target/learning-spring-0.0.1-SNAPSHOT.jar
+
+
+====Spring Data====
+
+	boilerplate data access
+	common set of interfaces based on jpa
+	provides common naming convention and u just write interface
+	Raw JDBC can be used but not needed
+	provide repos and data mapping conversion
+	
+	-remove boilerplate code
+	-allows swapping datasources easier
+	-allows focus on business logic.
+	
+	**Repository interface
+		leverages proxies to build crud methods
+	
+	**Entity Object
+	
+	**Data Source
+	
+	spring.jpa.hibernate.ddl-auto=none hibernate wont create schema we handled its
+	(in app properties)

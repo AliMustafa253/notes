@@ -17,6 +17,7 @@ TENSOR FLOW
 		A way of measuring how far off predictions are from the desired outcome. 
 		(The measured difference is called the "loss".)		mean squared error etc
 		lower loss = better (closer out come values)
+		sparse categorical crossentropy = classification
 	
 	- Optimizer function — 
 		A way of adjusting internal values in order to reduce the loss.
@@ -29,15 +30,19 @@ TENSOR FLOW
 	- Dense Layer = Fully connected to previous layer
 	
 	- Weight and Biases
+		can be changed
+	- Normalize between 0-1
 	
 	28x28=784 pixel
 	- Flattening
 		2d image into vector
 	
 	- Activation Function -
-		ReLU gives the network the ability to solve nonlinear problems. 0 for negative max(0,x)
-	- Softmax
+		-ReLU gives the network the ability to solve nonlinear problems. 0 for negative max(0,x)
+	 	-Softmax uses sparese categorical crossentropy as loss ftn
+		-sigmoid = binary crossentropy
 		A function that provides probabilities for each possible output class
+	- Optimizer e.g Adam
 		
 	
 ========================
@@ -45,6 +50,10 @@ TENSOR FLOW
 	----Test Data and Training Data----
 	
 	Validation dataset
+		after every training epoch checks on validation set.
+			Validation set = not used for training only tells how well training is doing.
+			it can tell if we are overfitting or not
+			lowest validation loss = best set
 	
 	Regression 
 		find 1 number, best result given question   For example, an estimate of a house’s value.
@@ -53,23 +62,55 @@ TENSOR FLOW
 		Confidence an item is of one class, output consisting of data.
 		
 		
-========================
+========================CNN====================
+
+	Period Dense Networks earlier
 	----CNN----
-	
-	Invariance
+			
+	-Invariance
 		Recognition of image in diff positions to recognize stuff
+	-Convolution:	
+		The process of applying a kernel (filter) to an image
 		
-	Kernel/filter
+		-Kernel/filter
 		6x6
 			Kernel convolution 3x3 multiply with value selected 
 			sum all of them to make corresponding value for all pixels
 		
-	Padding: Adding pixels of some value, usually 0, around the input image	/Downsampling
-	Max Pooling
-		Reduce size by summarizing regions	
+		-Padding: Adding pixels of some value, usually 0, around the input image
+		
+	-Max Pooling-
+		A pooling process in which many values are converted into
+		a single value by taking the maximum value from among them.
 			Max pooling 2x2 stride 2
+		needed for Downsampling = reduce input complexity
 			
 			
 	More epochs = overfitting
 	
+	Overfitting
 	
+	-images of different sizes
+		need fixed size input in NN
+		resizing images to 150x150 in dog and cats
+		
+	--color images--
+		3d array
+			RGB image = 3 arrays of 2d
+			each has its own 2d array
+		
+		-Convolution on 3d image:
+			3d filter depth = matches color channel
+			bias added = usually 1
+		
+		-Max Pooling in 3d image
+			On each convoluted output
+			
+	-image augmentation = zoom, rotate etc if low image count
+	
+	-Dropout:
+		randomly turn off some neurons during training
+		so that some neurons are not focused on.
+		resistant
+		
+		

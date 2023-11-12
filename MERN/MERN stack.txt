@@ -111,6 +111,9 @@ MERN
 			GET ../user/:uid	GET ../:pid	POST ../	PATCH ../:pid	DELETE ../:pid
 			
 			
+		await = wait for try and catch 
+		
+		for promise .then()/.catch() etc
 			
 =====React=====
 
@@ -186,5 +189,227 @@ MERN
 	***State update depends on previous state data = use Function
 	
 	
+	
+	====================
+	<Redirect to="/" />
+	EXACT = exactly this and not all routes that have this.
+	
+	<Switch> component allows you to redirect only when <route path="/test">
+	etc not accurate
+	
+	ftn = () => (<userItems>) == no need for return
+	
+	pages do minimum stuff components etc main delegated
+	
+	
+	<a> anchor tag = real link = brand new page
+	
+	React Router Dom blocks default path and loads appropriate component.
+	
+	
+	======================
+	Presentational v.s Stateful Components
+	
+	presentational = dumb only styling etc
+	
+	stateful = smart
+	
+	=======================
+	props.children
+	refers to everything between opening and closing tag
+	everything insides it. placeholder for it
+	
+	***Cant return multiple diff values in js like return 1 2; so cant return
+	<header/> <main /> 
+	
+	<React.Fragment>
+	
+	----Portals-----
+	Mark a new place where we want to render our portal content
+	
+	deeply inside element tree inside dom otherwise. 
+	Make it somewhere other than the tree
+	Content inside component
+	
+	React Portal comes in handy when we need to render child components outside
+	the normal DOM hierarchy without breaking the event propagation's default
+	behavior through the React component tree hierarchy. 
+	This is useful when rendering components such as modals, tooltips, popup 
+	messages, and so much more.
+	
+	session = stop whn browser closed.
+	local and cookies can be stored.
+	
+	
+	=====HOOKS=======
+	useState
+	
+	useParams
+	/:placeid/
+	
+	useRef
+		store data across re render cycles
+		can be used to connect to dom element (for images etc)
+	useEffect
+		ftn/logic when certain inputs change or [] when start or unmount
+		after runstate
 		
+	useReducer
+		v.s useState = can manage complex states as well
+	
+	useCallback
+		wrap around ftn or smthn with useEffect to avoid cycle
+		
+	useContext
+		checks context and allows refresh component when changed
+		
+	Custom Hooks
+	
+	
+	====================
+	*****EVENT.PREVENTDEFAULT
+	Do not reload page by triggering submission etc
+	
+	*****OBJECT DESTRUCTURING 
+	const { center, zoom } = props
+	------Google Maps--------
+	AIzaSyCRw4eql8o1sszK8e56SD1ZyQXLpmJoykk
+	
+	order matters for places/:placeid and place/new as new will
+	be assumed as placeid if placed later
+	
+	*****HOOKS ONLY ALLOWED DIRECTLY IN FUNCTION COMPONENT (NO IF WHEN ETC)
+	
+	==========================
+	REACT CONTEXT
+	
+		add on top of react app component
+		
+		useContext
+		
+		
+		
+============NODE JS EXPRESS==============
+
+	---What is nodejs?---
+	
+		- A host environment for JS/ JS runtine env
+		- V8 = out of chrome and maintained as a standalone project = nodejs
+		- Allows js out of browser. (cant use dom anymore as no dom)
+		- Can use file systems
+	
+	require() function in nodejs
+	
+	async = nodejs environment
+	
+	
+	---What is Express---
+		- A framework for nodejs = makes web apps easier and 
+		- middleware focused.
+		
+	--save = core app dependency
+	
+	--save-dev only for dev
+	
+	Express = --save
+	
+	app = express ();
+	
+	app.use((req,res,next) =>{}); = middle ware
+	
+	incoming request sent on chunks
+	
+	middleware based approach = out of box framworks etc so we focus on business logic
+	
+	cant access file inside node accessible outside server.
+	goes into middleware funnel and only logic inside middleware is executed
+	
+	=========
+	ORDER MATTERS in routes /:pid can consuem /user so /user should be above
+	and /:pid /user/:uid cannot be consumed
+	Browser sends Options before other req (except get)
+	
+	4 paras = error app.use((error,req,res,next)=> {})
+	adds to all errrors
+	
+	**encodeURIComponent() === make string URL friendly formated
+	
+	***SPA backends (APIS) are stateless and decoupled from frontend
+		so use tokens
+		
+	token in headers or query/ bodies not always available as get/delete etc
+
+	
+	
+============Mongoose and MongoDb==============
+
+	MongoDB 
+		Nosql Stores Documents in collections
+			instead of records in tables in sql
+			
+		Store app data, no data schema or relations
+		
+		ez for node/express
+		
+	----NoSql v.s Sql----
+	- Mongodb,couchdb,redis v.s mysql,ms sql
+	- Enforces no Data Schema --> flexible
+	- Less focus on relations.
+	- Independent Documents/ not related
+	- Great for logs,orders chat messages. = fast
+	
+	- Sql = shopping carts contracts, networks
+	
+	---Why not direct connect with front end?---
+	provides credentials ---> expose credentials to everyone who uses browser.
+	
+	---mongodb atlas---
+	
+	cluster = ur server can contain multiple servers
+	
+	====Mongoose====
+	findById()
+	find(). in array can also do it by cursor = iterate through results
+	async 
+	toObject cannot be used with array so map it 
+	
+	unique = makes quering faster so add it whn needed
+	
+	
+	USE AS 2 DBS/MULTIPLE OPERATIONS DONE SO IF ONE FAILS THEN BOTH RETURNED
+	***session
+	***transaction
+	Transaction = need to create collection manually
+	Only pushes when all done
+	
+	push = establish connection in mongoose with mongodb adds placesId
+	
+	Multipart = binary and json stuff can be added
+	
+============MERGE==============
+
+	CORS
+	browser specific = postman doesnt care 
+	
+	front end validation can be disabled by user so backend validation done
+	any async function always returns a promise
+	
+	
+=============Deployment============
+	Develop and test your code
+	
+	Swap URLs and credentials for production ready ones.
+	
+	Build and Deploy
+	
+	.env.production
+	
+	****Lazilly load stuff = code splitting
+	
+	Deploy Two Seperated Apps Or Deploy One Combined App
+	react app = static hosting possible
+	node rest api = need other aps like our own node.js host or aws/heroku
+	
+
+
 	

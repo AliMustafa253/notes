@@ -112,5 +112,71 @@ TENSOR FLOW
 		randomly turn off some neurons during training
 		so that some neurons are not focused on.
 		resistant
+	
+	============Transfer Learning==============
+	
+	- changed last layer of pretrained model
+	- each dataset has different outputs
+	
+	- frozen layers
+	- features learned will changed from new classifier (untrained)
+	
+	mobilenet - convulated model
+	tensorflow hub 
+	
+	
+	=============Transformer================
+	Sequence to sequence  architectures:
+		defined ordering.
+		Help solve nlp problems
+	--word embeddings: 
+		convert words into numbers 
+		inputs connected to active functions and weights
+			depend on backpropogation
+			initially random number
+	--Positional encoding:
+		1 example sine cosine used for embedding values
+		
+	--Self Attention:
+		How similar a word is to all other words
+		
+		-query value
+		made from sets of new values.
+		query and key e.g dot product to check similarities
+		
+		similar score put into softmax core
+	-residual connection
+
+	--Decoder Encoder Attention:
+		Decoder should know significant words in input
+		
+		
+	===========================================
+	--BERT--
+		
+		Encoders 
+	
+	--GPT--
+		Stack decoders for GPT
+		
+		-Pre training: 
+			Train gpt architecture
+			Language Modelling---> predict next language could base
+			self supervised task
+		
+		-Fine Tuning: XXXXX
+			Provide training data for
+				Too much data needed.
+				Overfitting easy
+		-Zero Shot learning
+			What instruction should be done with the question
+		-One shot Learning
+			Full examples
+		-Few Shot learning
+			
+			
+	
+		
+	
 		
 		

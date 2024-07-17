@@ -1,0 +1,39 @@
+Creative Direction:
+
+Concept:
+	What is the main concept we're driving at?
+	
+Creative Outputs Required:
+	What do you need to create?
+	
+Measuring Success:
+	What metric are you trying to improve?
+	How will the success of the design project be judged?
+	
+Goals:
+	Goals:
+		What are the primary goals for the project?
+		
+Content Needs:	e.g Freelance website
+
+Homepage
+	- Headline that references trusted freelancers
+	- Social proof
+	- Catgeories
+	- Process
+	- Testimonials
+		- success stories
+	- Images of people
+	- Distinction between cleint and freelancer
+	
+Visual Needs:
+Homepage:
+	-Visual job representation
+		job cards
+		analytics cards
+	
+Dribble:
+	Inspiration
+		screenshot of things u like
+	
+	

@@ -1,0 +1,27 @@
+---Web Design---
+	
+	divided in rows
+	
+	distinctive sections
+	
+	need content first
+	
+	web design page blocks e.g pinterest
+
+
+
+---Tailwind---
+
+	tailwind = set of css utility classes
+
+	others come with css components uik its
+	
+	JIT just in time compiler
+	
+	make components for buttons input etc 
+	@apply
+	
+	not inline styles = using more css classes essentially
+	no media queries, no reusablity etc in inline styles
+	
+	https://play.tailwindcss.com/ZHWF62Kxbt

@@ -1,0 +1,36 @@
+============================
+spec bnane main maddad 
+	version control etc
+	
+api for product manager etc
+
+mock api through ai
+
+			vs studio no
+			web woob pr rakho
+			
+			gui editor
+				diff tools by diff companies = compatibility issue
+				e.g apimatic k sdk = define some rule
+				stripe = square apimatic sdk se powered.
+				
+	== offering one thing is not enough. need to offer more.
+	apimatic primary was sdk and then documentation
+		kisi aur ki api inke through integrate krte
+		
+		primary goal of apimatic is to help with api consumption
+		
+			code generation
+			generate sdk of the api provided
+			only rest apis
+			websockets = no
+
+
+===========Proxy============
+
+
+===========LLM===============
+
+confluence se data
+
+how is it different from a search?

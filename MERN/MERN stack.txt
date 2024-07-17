@@ -1,11 +1,23 @@
 MERN
 	
+	
+	----Imperative v.s declarative programming----
+		imperative e.g plain js = steps on how ui is to be updated.
+		declarative e.g react = declare what they want to show
+	
+	
 	----React----
 		Client side library allowed you to build reactive UI
 			Render UI with dynamic Data
 			Handle User Input
 			Communicate with Backend Services
+	--jsx--
+		write html like syntax = need js compiler like babel to convert to js
 
+	--Nextjs--
+		Partial rendering
+		routes inside folders code splitting
+			data fetches down to component --> suspense
 	----Node----
 		run js outside browser. Generally for server-side programming language
 		

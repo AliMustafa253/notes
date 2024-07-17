@@ -1,0 +1,243 @@
+NEXT HACKATHON
+
+---------------------------------------
+Chapter related questions.
+
+
+Full stack developer
+over 2 years of exp
+Front end -> nextjs, angular, react
+Tailwind, Nextui, Elasticui, Mui, 
+
+Back end -> Flask, Nodejs, SpingBoot, mongodb,nosql etc, orms (liferay)
+
+AI -> Made own model, Worked on some ML libraries, OpenAI API, 
+Worked on LlamaIndex, Open AI API, TruSense for RAG accuracy
+
+hackathon
+
+A free emotional/wellness character chatbot that is also your best friend 
+	
+We're using the Gemini Vision model to identify the sentiment of the image to 
+determine how the user is feeling. 
+Our data framework is LlamaIndex which allows us to use LLMs with our data
+(Gemini and GPT-4 Turbo) and create an Agent capable of holding a conversation,
+analyzing images and using data tools.  We're using a local vector store to house
+our chunked data on mindfulness, which we provide as context to the LLM in order to
+perform multi-modal RAG (results augmented generation) using images as search inputs.
+
+	Vectorize Content
+	
+	Agent Tools
+		Query Engine Tool
+		mindfullness recommendation --> youtube
+		Analyze Image tool
+	
+	Create Agent with the tools
+
+
+
+----------Idea queries---------
+
+publishing houses books like 
+	artistic books, fiction etc
+	translating etc... see if book is what its said to be.
+	
+	read a book once or twice each book.
+	unsatisfying process for both sides.
+	
+	appreciate the details
+	
+	publishing houses want reviews --> for market etc
+					check context on given market.
+					similar books on market.
+					what type of books are famous.
+					qualities important for a certain publisher.		
+					summarising chapters that are general.
+					
+					multiple reviews possible --> only 2 at max.
+					currently specialized reviewers.
+					
+					Investigative politic books --> valerone
+					
+					with quotes. help make decision if human reviewer etc
+					needed. help process books more.
+					
+					
+					---> NEED VALID OUTPUT (hallucination risk)
+					- merging chapters --> mixing context and outputs?
+					
+					- need to analyze each chapter. require a lot of outputs.
+					- context between chapters?
+					- summary + specialized reviews?
+					
+					- finetuning claude.
+					
+	---> different prompts developed from publishers.
+			help in writing reviews on his own.
+		idea on how to do with llm but need testing.
+		
+		80% books = not published. irritating for both sides.
+						---- define books during input
+					
+		--> writers and translators not good.
+	
+	LlamaIndex?
+	
+internal reviews --> 
+	goals in the review? 
+	How is the LLM model achieving them?
+	
+	You have expertise on the prompt. 
+	Accuracy measurement? set goals for it
+
+	Writing app
+
+---------------------------------------
+Valerone.
+Journalist --> writes books
+
+
+	haiku = giving list of chapters.
+	
+	
+	identify if bookmarks has chapters. --> not use llms
+	if pdf doesnt have bookmarks then use llms
+	
+	front end options
+
+
+	preprocessing.
+	
+	front end
+		-> api key (required)
+	<-> Confirm api valid
+	
+		-> pdf (required)
+	<-> Return info from pdf api
+		
+			-> Author Name and biography (important)
+			-> Book Information (important)
+				-> genre (llm generated?)
+			-> What User wants to look for.
+			-> Chapter List. (confirmation after api response from backend)
+		
+	<-> Return summary result
+			-> read more?
+			<-> multiple outputs (e.g chapter wise)
+			
+		
+	back end
+		no storage?
+		store output.
+		particular user inputs and everything.
+		mid outputs.
+	
+	
+	Nextjs	Typescript
+	FastApi
+	Firestore
+	Sonnet/Multiple LLMs
+	
+	
+The judging criteria is 50% technical and 50% business.
+
+Important things for technological criteria:
+- For technology they look at what technology is being used. what is being highlighted (claude in our case I guess) what is the role of the llm? 
+- Plagiarism. Mention if copied from somewhere.
+- Possible to Scale technologies.
+- Open Ended Hackathon so no specific tech required.
+
+for the noise in pdf we can use EDA or LSTM or hybrid search or semantic search (easiest option)
+
+he did put an emphasis on using a tool like RAG and something to evaluate like Trulens as it helps the non technical and technical judges see a figure.
+numerical values are important for the presentation (figures for the profits etc)
+	
+technological aspect.
+	observe --> first see what technology implement ki.
+				kis cheez ko highlight. What role of the llm. context build krne k liye llama for example?
+				plagiarism. --> reference if plagiarised. doesnt count as plagirised then.
+				open ended hackathon.
+				possible to scale?
+				
+				50% technology.
+				50% business.
+				
+				llm ---> 
+					usecase. facts and figures (business standpoint se)
+					boht fancy frontend bhi nai zaroorat.
+					
+				research-tool ---> show a glimpse
+				
+				specify model.
+				
+				RAG --> mockup data is fine.
+					pinecone or llamaindex instead of mongo for db
+				
+				EDA LSTM for noise in pdf 
+				hybrid search...semantic search (easier to do)
+					word count letter count etc. context = measure
+					formula to see repeated words. 
+					
+				TruLens ---> both with and without RAG.
+				
+				Business side ---> 
+					7 things.
+					1- Team 
+					2- Problem 
+					3- Solution 
+					4- Market Size (TAM, SAM, TOM) 
+					5- Revenue Stream 		(imp)
+					6- Next Steps/Backlogs 
+					7- Working Demo
+					
+				ResearchGate
+				
+				numerical values important for presentation
+					
+				
+-----------------------------------------
+	
+--Must Have--
+	two llms with seperate roles:
+		discuss the final review text.
+		implement as part or have a button?
+		give an option for it.
+		
+	view more option:
+		not all chapters displayed.
+		add all chapters.
+		
+		
+	fun facts for loading screen:
+		50-75 fun facts displayed when loading the prompts.
+		
+	chunking issue?:
+		chapter 1-2 in some books not all. prologue etc in some
+		chunks 5 max
+		convert to llm?
+			add options like genre/biography/author
+			
+--Good to have--
+	error message improvement:
+		take message from user.
+	
+	output stored:
+		show each output
+		
+	seperate page:
+		information
+		user prompt
+		
+	Icon to upload file
+	AI Model and specify speed/quality (haiku v.s sonnet)
+	
+	limit token:
+		for showcasing.
+		not for anthropic
+		
+
+	
+	
+	
+		

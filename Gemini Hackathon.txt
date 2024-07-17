@@ -1,0 +1,174 @@
+Full stack developer
+2 years of exp
+Front end -> nextjs, angular, react
+Tailwind, Elasticui, Mui
+
+Back end -> Nodejs, SpingBoot, some of python
+
+AI -> Made own model, Worked on some ML libraries, OpenAI API
+
+
+
+Hackathon in my office --> 3rd place
+
+decide on a personality --> adjust background accordingly via AI
+
+
+Chatgpt API
+Bay area Sophie
+Andrew python etc
+Kostas DS 
+
+cater it to a specific audience
+like children or adults
+help them via drawing/facial expresssions etc
+trying to understand the personality of a user.
+
+Potential concern.
+Healthcare needs high Accuracy. Have to make sure that
+we give decent advice.
+
+-------------------------------------------------
+
+We're using the Gemini Vision model to identify the sentiment of the image to 
+determine how the user is feeling.  
+Our data framework is LlamaIndex which allows us to use LLMs with our data
+(Gemini and GPT-4 Turbo) and create an Agent capable of holding a conversation,
+analyzing images and using data tools.  We're using a local vector store to house
+our chunked data on mindfulness, which we provide as context to the LLM in order to
+perform multi-modal RAG (results augmented generation) using images as search inputs.
+
+Frontend: React
+Backend: Flask and Python for API Server, Firestore as metadata storage, Google Cloud Storage
+for file storage, and generally Google Cloud for hosting/deploying
+
+
+For drawing I liked the following library.
+
+Tldraw (React library)
+	- Inbuilt features like save as png/svg,erase,shapes
+	- Dynamic so can be used on both mobile and web
+	- Examples with AI/LLM integration
+	- Demo Example : https://www.tldraw.com/
+	
+	> Customizable but will need further research if we want to customize it.
+
+An alternative could be
+
+Excalidraw - Demo Example :https://excalidraw.com/
+
+
+
+Apis
+	- Authentication?
+	- Chat History/Storage
+	- Image History/Storage
+	- Audio?
+	- AI commands
+		- read/reply to messages
+		- Prompt drawing images/any other prompt?
+		- Analyse Images
+		
+Host it somewhere or local environment?
+
+indicator to initiate drawing exercise/ any other prompt
+	
+Chat/image  history -> db connection required.
+Firestore?		
+	trigger actions on writes
+	check if its a message send from the model etc
+Cloudinary?
+Google storage buckets?
+
+expo go
+
+openai = driver seat to the bus essentially.
+llama_index much easier 
+
+vector embeddings stored from the data pdfs. in the storage folder
+tools = context of the books as knowledge base and gemini
+
+most code = setting it up.
+
+analyze image = all gemini code
+backend store it in a google cloud agent = pass the url to chat agent
+
+calling it via the chat_messages again and again.
+determines it needs to use a tool for images
+= gemini returns. tells what it was and do sentiment analysis
+
+2nd session = maybe summarise it
+
+discerns itself when to use something/ generate audio tool or image etc with it
+
+hard for the backend call to do things but for the agent its easier
+
+
+--------------------------------------------------------------
+vector embedding
+LLMs generalize, memorization should be given to smthn else = 
+		vector storage = RAGS for hallucination problem
+		
+-query planning
+		
+	-RAG triad
+	
+		
+		- Context Relevance	(QS) each chunk and q
+			RAG application is retrieval; 
+			
+			to verify the quality of our retrieval,
+			
+			we want to make sure that each chunk of context is relevant to the input
+			query.
+		- Groundedness
+			After the context is retrieved, it is then formed into an answer by an LLM.
+			
+			LLMs are often prone to stray from the facts provided, exaggerating or expanding
+			to a correct-sounding answer. 
+			
+			To verify the groundedness of our application, we
+			can separate the response into individual claims and independently search for evidence
+			that supports each within the retrieved context.
+			
+		- Answer Relevance	
+			Last, our response still needs to helpfully answer the original question. 
+			
+	
+	
+
+Trulense
+
+
+	feedback function provides score
+	after reviewing an LLM app input output and intermediate results
+	and metadata
+
+
+
+On my end:
+- Started out on getting the storage bucket working but I had an issue regarding the billing for google cloud and couldnt get the storage bucket to work. Woke up to see Vishal had already finished the stuff so appreciate the work done on that.
+- Looked into Connecting the Model and TruLens a bit if anyone wants to get a quick overlook for trulens you can also look at this video: https://www.youtube.com/watch?v=U3c0nOT4Cl4
+
+
+	connected the ai model with the backend 
+	agent is stored globally
+	not the best method but it should work for the hackathon ig
+	storage 
+	just made a simple api call with a text input 
+	
+	
+	audio
+	history
+	summary
+	
+	
+	save_session === summary?
+	display summary?
+	
+	tldraw submit button side pr?
+	
+	Intro page for willow on clean chat
+	save functionality
+	scroll 
+	youtube link

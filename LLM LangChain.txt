@@ -1,0 +1,87 @@
+===RAG===
+	Retrival Augmented Generation
+	
+	Instead of relying just on the LLM retrieve relevant content first.
+	
+	- instruction
+	- prompt
+	- response
+	
+	Instead of retraining model = augment datastore.
+	
+	Relying on content store, open like internet or collection of documents etc.
+		
+	
+	Generation -->
+		No sources?
+		Out of date?
+		
+		NASA = source 
+
+	===RAG triad===
+	
+		
+		- Context Relevance	(QS) each chunk and q
+			RAG application is retrieval; 
+			
+			to verify the quality of our retrieval,
+			
+			we want to make sure that each chunk of context is relevant to the input
+			query.
+		- Groundedness
+			After the context is retrieved, it is then formed into an answer by an LLM.
+			
+			LLMs are often prone to stray from the facts provided, exaggerating or expanding
+			to a correct-sounding answer. 
+			
+			To verify the groundedness of our application, we
+			can separate the response into individual claims and independently search for evidence
+			that supports each within the retrieved context.
+			
+		- Answer Relevance	
+			Last, our response still needs to helpfully answer the original question. 
+
+
+=============LangChain=============
+
+	integrate multiple llm together or integrate them with stuff like data sources or workflows
+	
+	Simply put, Langchain orchestrates the LLM pipeline.
+
+LangChain's power lies in its six key modules:
+
+	- Model I/O: Facilitates the interface of model input (prompts) with the LLM model (closed or open-source) to produce the model output (output parsers)
+
+	- Data connection: Enables user data to be loaded (document loaders), transformed (document transformers), stored (text embedding models and vector stores) and queried (retrievers)
+
+	- Memory: Confer chains or agents with the capacity for short-term and long-term memory so that it remembers previous interactions with the user
+
+	- Chains: A way to combine several components or other chains in a single pipeline (or “chain”)
+
+	- Agents: Depending on the input, the agent decides on a course of action to take with the available tools/data that it has access to
+
+	- Callbacks: Functions that are triggered to perform at specific points during the duration of an LLM run
+	
+		
+=============LlamaIndex===============
+
+LlamaIndex provides the tools to build any of context-augmentation use case,
+from prototype to production. Our tools allow you to ingest, parse, index and process
+your data and quickly implement complex query workflows combining data access with LLM prompting.
+
+
+---RAG PIPELINE---
+	Loading & Ingestion: Getting your data from wherever it lives, whether that's unstructured text, PDFs, databases, or APIs to other applications.
+	LlamaIndex has hundreds of connectors to every data source over at 
+	
+	Indexing and Embedding
+		Index is a data structure composed of Document objects, designed to enable querying by an LLM
+			VectorStoreIndex  -> doc -> index -> vector embeddings
+		vector embedding -> numeric representation similar semantic = similar number --> semantic search
+	
+	Storing
+	
+	Querying
+		Retrieval 
+		Postprocessing	--> e.g minimum similarity score
+		Response synthesis

@@ -793,3 +793,351 @@ others regional like ec2 --> aws regional services check availability per region
 	EC2 HTTP restricted to Load Balancer.
 		EC2 Allow traffic only if coming from load balancer
 		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	AWS Cloud9  ---> Code Editor
+	
+	AWS Amplify CLI.
+	
+		AWS Amplify is everything you need to build web and mobile apps. Easy to start, easy to scale.
+		It creates a top level directory called amplify that stores your backend definition. 
+		It creates a file called aws-exports.js in the src directory that holds all the configuration for the services you create with Amplify. 
+		
+		amplify add hosting
+		rerun app using (manual)
+			amplify publish
+	
+	SAM
+		Serverless App Model -> ez to deploy serverless infra 
+		AWS SAM defines a set of resources that describe common components of serverless applications.
+		
+		sam build
+		sam deploy --guided
+
+
+	--Monitoring--
+		most imp for lambda functions:
+			Errors:
+			Execution Time:
+			Throttling
+		
+		In AWS Lambda, the default logging service is Amazon CloudWatch.
+			each instance of lambda function has a dedicated log stream.
+		
+		
+	
+	Lambda authorizer
+		A Lambda authorizer is an API Gateway feature that uses a Lambda function to control
+		access to your API. It is a way to add additional security to your API.
+	
+	-------- SERVERLESS ------------
+	
+	Software Release Process
+		CI / CD		Continous Integration / Continous Deployment
+		
+		Source > Build > Test > Production
+		
+		Frameworks > AWS Native
+			AWS Native: AWS SAM AWS SDK AWS AMPLIFY
+			3rd party: Terraform serverless
+			
+	AWS SAM
+		Transform templates:
+			IaC for serverless applications
+		AWS CLI
+			local dev, build,package and deploy serverless app.
+			
+			Create ur app 
+				init 
+				build 
+				local 
+				logs 
+				traces 
+				sync
+				
+			Stack management
+				validate 
+				package
+				delete 
+				deploy
+				pipeline
+				publish
+			
+			
+	AWS CloudFOrmation
+	
+	AWS SAM. 4 parts:
+		Tells cloudformation this is a SAM template it needs to transform.
+		Function config
+		Permissions for functions
+		API Gateway
+		
+	AWS SAM Pipeline.
+		generates resources and config req to build cicd pipeline.
+		supports:
+			Github Actions
+			Jenkins CI
+			GitLab
+			AWS CodeSuite
+			
+	AWS SAM Summary
+		Define applications with fewer lines of code than cloudofrmation using serverless resource types.
+		Supports All AWS CloudFormation Resources.
+		Local testing by emulating Lambda and API Gateway
+		Accelerate testing on cloud with same accelerate.
+		Generate resources and ci cd pipeline.
+		
+	AWS CDK
+		sdk for modeling cloud infrastructure as reusable components
+			Abstraction
+			Familiar
+			Tool Support
+			
+			
+	AWS Amplify
+		accelerated and simplifies dev exp for full stack devs
+		rich features to quickly create frontends.
+		Generates cloudformation for backend
+		CI/CD pipeline
+		
+		For mobile apps usually.
+		
+	With Lambda function you cant chain functions because they are meant to be stateless . T
+	here is another service called AWS StepFunction which you can use to create the orchestration and chain multiple lambda functions and other services. 
+	
+	There is another way to send message to other lambda function called Lambda Destinations
+	- however, AWS StepFunctions is still preferred because it covers a lot more services than just lambda, and have native integration with the services. 
+	
+	best practices depends - if you are building an event driven architecture, you can either push a success message
+	(with context) to a queue or kafka stream may be - and let the listener on the other end take care of the
+	message. This way they will be loosely coupled. Aws step function for tight coupling if uk what to do
+	
+	
+	Config management tools
+	
+	Static 
+		Config file on s3 or code repo.
+			App can download config on start from S3
+			Works for non confidential data.
+		AWS Systems Manager Parameter Store
+			Hierarchical storage, sensitive data
+			Supports data validation
+			No complex data types
+		AWS Secrets Manager
+			secrets with rotation
+		
+	Dynamic
+		AWS App Config.
+			flags
+			Source Control.
+			
+	Best practices.
+		Automate config changes through pipeline.
+		Use default config values in code
+		Consider caching dynamic config info
+		Avoid configuration bloat
+			Periodically review and clean up old configuration.
+	
+	
+	Make sure everything works.
+	
+		AWS Lambda functions -> 15min or less
+								No code issues -> 3rd party ensure if it works
+			3rd party services. 	can test with 3rd party
+			Manual QA
+			Safe deployments
+			
+	Deployment Strategies.
+		All at once
+			All changes at the same time.
+			If any issues --> rollback
+			Risk of downtime.
+			Fastest way of deployment.
+			Better for low concurrency workloads and dev/staging env
+			
+		Blue/Green
+			Deploy to a new stack/switch traffic to new stack.
+			Observing near stack go back to old stack if error.
+			Reduces downtime.
+			Medium Concurrency.
+			
+		Canary
+			Deploy changes to a new stack.
+			Send like 10-30% of traffic to new stack.
+			Observe Increase traffic slowly. Downtime impacts only fraction of users.
+			Better for high concurrency workloads.
+			
+	Lambda Versions and aliases.
+		Versions immutable snapshots of a function code + config
+		Alias pointer to a version	Can change alias to another version once confirmed.
+		
+	DNS with route53.
+		Diff traffic directed to diff places according to diff geographical regions.
+		Blue/Green and Canary
+		
+	Diff strats for dif fstages.
+		Dev		Stage		Prod
+		AllatOnce 		Canary at Linear10%Every1Min
+	
+	use canary releases to get tech and business feedback.
+	
+	SECURITY IN SERVERLESS:
+		 shifts security Responsibility towards AWS 
+		 and Left security shifts to Organization.
+		
+	Security is a shared responsibility ---> customer + AWS
+	Serverless ---> Shigts a lot more to aws customer only IAM customer functions and resource fdonifg
+	AWS compute scaling up and down network infra regions etc.
+	
+	Controll access to services with IAM
+		- Control plane actions -> manage resources like createFunciton updateStateMachine.
+		
+		- Data plane actions execute on dialy business 
+			Invoke 
+			PutEvents
+		
+	Lambda Function Isolation
+		Function runs in dedicated sandbox
+	sandbox reuse:
+		may be reused b/w invocations = improve latency and reuse prev initialized connections.
+	
+		Use caution when storing sensitive data in memory or /tmp
+	
+	Traditional approach
+		Heavy emphasis on perimeter security and alarms.
+		apps deployed within secured perimeter.
+		
+	Modern approach.
+		Implement defense in depth.
+		Secure each component of the workload
+		Focus on IAM.
+		Apply perimiter security if exposed to internet.
+		Leverage AWS WAF, API Gateway.
+		Managed services provide a strong basis.
+	
+	Least Privilege
+		**Be specific
+		Function Policy:
+			Who can invoke function 
+			
+		Execution Policy:
+			What can the function do?
+	
+	
+	Defense in Depth:
+		Access control and data path protection
+	
+		SQS encrypted by default.
+		ABAC support in SQS.
+		SNS data protection -> discover and protect sensitive data in motion
+		
+	---retrieve secrets in lambda functions---
+		AWS Secrets Manager:
+			Init once then invocation:
+				Uses secrets.
+				Across invocation stash db? or not? mostly not understand service.
+				
+	validate untrusted event payloads.
+		Validate input before processing before parsing.
+		Use Strict typing
+		Consider for all event sources.
+	
+		API gateway has many options
+	
+	Use a framework!
+		empowers devs to safely create policies.
+		
+	AWS Config ProActive controls.
+		proactive/continously monitor instances.
+		
+	Code scanning with amazon inspector.
+		Scan for vulnerabilities in env
+			Standard scans/ code scans.
+		Proactively monitor.
+		
+	Lambda functions always run in VPCS owned by service team.
+		Only neded if VPC resource access needed or must meet a security control.
+		
+	Amazon GuardDuty
+	
+	---------Serverless Observability-------
+	traditional monitoring layers:
+		Business and Application + Data	mostly concerned for customers.
+		Rest AWS in serverless.
+		
+	monitoring more than failures:
+	is it behaving as expected? usage? business impact?
+	
+	Observability:
+		Metrics Logs Traces(trace user actions)
+		
+	AWS Observability tools.
+		AWS CloudWatch logs. CW Metrics. X ray
+	
+	CloudWatch
+		Collect 
+		
+		Monitor 
+		
+		Act 
+		
+		Analyze
+	
+	CloudWatch Logs.
+		Metric FIlters:
+			Metrics based on log filters e.g count of 4xx errors
+			Jump to logs that generated metric.
+		Lambda Logging.
+		API Gateway Rest logging.
+		
+		Standard Structured Logging.
+			json -> Send it to cloudwatch log 
+	
+	
+	0311-433331

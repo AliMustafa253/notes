@@ -939,8 +939,88 @@ others regional like ec2 --> aws regional services check availability per region
 		Faster active = less cd
 		
 		
+==========RDS=============
+		Relational Database Service
+		Managed DB service uses SQL
+		allows you to create db in cloud managed by AWS:
+			Postgres, MySql,MariaDb,Oracle,SQL Server,Aurora,IBM smthn
+			
+		--Advantage over using RDS versus deploying DB on EC2--
+			- RDS is a managed service:
+				Automated provisioning, OS patching.
+				continous backups and restore specific timestamp.
+				Monitoring dashboards.
+				Read replicas for improved read performance.
+				Multi AZ setup for DR (Disaster Recovery)
+				Maintenance windows for upgrades
+				Scaling (vert and horizontal)
+				Sotrage backed by EBS (gp2 or io1)
+		Cant SSH into your RDS instance
 		
+		-----RDS - Storage Auto Scaling----
+			Helps you increase storage on RDS DB instance dynamically.
+			RDS detects you re running out of free db sotrage, scales auto.		
+			Maximum Storage Threshold (max limit)
+			Auto storage if:
+				less than 10% of allocated free.
+				Low-storage lasts at least 5min
+				6 hours passed since last mod
+				
+		--RDS Read Replicas for read scalability--
 		
+			Helps scale reads
+			Up to 15 Read Replicas
+			Within AZ , Cross AZ or Cross Region.
+			***Replication is ASYNC so reads are eventually consistent.
+			Replicas can be promoted to their own DB.
+			App must update connection string to leverage read replicas.
+			
+			***Use Case***
+			
+			- Production db is taking on normal load.
+			- You want to run a reporting app to run some analytics.
+			- Create a read replica to run new workload there.
+			- Production app unaffected
+			Read replicas are used for SELECT (=read) Only kind of statements
+			(not DELETE,UPDATE,INSERT)
+			
+			- Network Cost:
+				Normally cost when data goes from one AZ to another.
+				For RDS Read Replicas within same reigon, you dont pay that fees.
+				
+			RDS Multi AZ (disaster Recovery)
+				Sync replication.
+				Replicate every change synchronously.
+				One DNS name - auto app failover to standby
+				Increase availability.
+				Failover in case of loss of AZ, loss of network, isntance or storage failure.
+				No Manual intervention in apps (new RDS is made master if failover)
+				Not used for scaling.
+				
+				****Read replicas be setup as Mutli AZ for Disaster Recovery***
+				
+			From Single-Az to Multi-AZ
+				Zero downtime Operation
+				Just click on modify for db.
+				Snapshot taken. New DB is restored from the snapshot in a new AZ and Sync established.
+			
+			
+	---RDS CUSTOM---
+		RDS we cant access underlying db customization
+		
+		RDS Custom we have OS and db customization: IN ONLY ORACLE AND MICROSOFT SQL.
+		
+			RDS: automates, setup, operation and scaling of db in aws.
+			Custom: acces the underlying db and OS so you can.
+				Configure settings
+				install patches
+				enable native features.
+				access underlying ec2 instance
+			Deactivate automation mode to perform customization better to take snapshot b4.
+			
+		RDS v.s RDS Custom:
+			RDS: entire db and OS managed by AWS. 
+			Custom: we have full admin access.
 		
 		
 		

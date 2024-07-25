@@ -1022,8 +1022,32 @@ others regional like ec2 --> aws regional services check availability per region
 			RDS: entire db and OS managed by AWS. 
 			Custom: we have full admin access.
 		
+=====AURORA======
+	
+	- Aurora is not open sourced ( propreitary tech )
+	
+	- Postgres and MySQL supported in Aurora DB.
+	
+	- AWS cloud optimized and claims 5x perforamce over MySql on RDS, over 3x of Postgres
+	
+	- Aurora storage auto grows in increments of 10GB up to 128TB.
+	
+	- Aurora can have up to 15 replicas and faster than MySQL replication.
+	
+	- Failover is Instantaneous.
+	
+	- Costs more than RDS (20% more) - but more efficient.
+	
+	----High availability and read scaling-----
+	
+	6 copies of your data across 3 AZ:
+		4 copies out of 6 needed for writes.
 		
+		3 copies out of 6 need for reads
 		
+		Self healing with peer to peer replication
+		
+		Storage is striped across 100s of vol
 		
 		
 		

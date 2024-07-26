@@ -1378,4 +1378,150 @@ others regional like ec2 --> aws regional services check availability per region
 			json -> Send it to cloudwatch log 
 	
 	
-	0311-433331
+=====Amazon API Gateway=====
+
+	API -> abstracts underlying implementation and only exposes objects or actions the dev needs
+	
+	Fully managed serverless service --> easy for dev to create,publish,maintain and secure APIS at any scale.
+	
+	RESTful APis.
+		Methods Get,Post etc -> req / response format
+		Short lived
+		
+			REST API -> feature rich (v1)
+			HTTP API is faster: lower cost: easier to use (v2)
+			
+	WebSocket APIs
+		Long--lived communication
+		Serverless 
+		
+	---Endpoint types---
+	
+	Edge-Optimized: REST API only (no HTTP)
+		utilizes cloudfront to reduces tls connection overhead (closes edge point)
+		for globally distributed set of clients
+	
+	Regional:
+		Recommeded API type for general use case.
+		Designed for building APIs for client in the same region
+	
+	Private: 	REST API only
+		only accessible from within VPC
+		designed for building APIs used internally or by private microservices.
+		
+	
+	Integrations:
+		lambda functions
+		public http endpoints
+		any other aws service.
+			Private:
+			Endpoint in VPC or aws direct connect
+			on premises
+			
+		VPC link:
+			
+		Req cycle:
+			WAF Authenticate Authorizer Authorize -> integration
+			
+			WAF ACL configured for enhanced security (who can send req etc)
+			
+		Client certiticates.
+			generate ssl cert useing api gateway
+			365 days public
+			
+		...
+		.
+		.
+		.
+		.
+		.
+		encryption in transit
+		
+		Throttling and usage plans.
+			Protect backend system,
+			
+			
+		...
+		.
+		.
+		.
+		.
+		.
+		
+		Caching
+			Minimal load to backend.
+			setup per stage or method.
+			
+		
+		Best Practices:
+			Use HTTP Apis if existing feature sufficient.
+			create an API per team/microservice and unify with custom domain name.
+			Console is for experimenting. Use infra as code:
+				SAM CloudFormation etc.
+				
+	======Synchronous req-res model========
+		
+		Low latency simple and fail fast.
+		
+		Receiver failure, throttled.
+		
+	----Asynch-----
+		Queue
+	Advantage
+		Decrease coupling.
+		resilient to receiver failure
+		receiver controls consumption rate.
+		Dead Letter Queue for errors.
+		
+	Disadvantages
+		Backlog recovery time
+		Fairness in multi tenant systems.
+		Response correlation
+		
+	CAN USE SQS
+		fully managed message queue
+		scale infinite 
+		simple easy to use api
+		DLQ and FIFO options
+		
+		
+	message channels
+	
+		Point to point queue
+			Sender -->  Receivers
+				SQS
+				Cloud native and serverless
+		
+		Publish Subscribe (topic)
+			Publishers ---> Subs
+				SNS  cloud native and serverless
+				
+	Event Bridge
+	
+		event exmaple rule and example event etc Current match
+		
+	Event uniqueness 
+		Handle it otherwise issues. receiver should have logic to deal with idempotency
+		
+		
+		....
+		
+		....
+	....
+	
+	...
+	...
+	AWS Step functions
+	
+		Task integration Patterns
+		
+			request-response:
+			
+			run a job
+			
+			wait for a callback
+			
+			
+	Activity tasks v.s wait for callback
+	
+	push v.s pull

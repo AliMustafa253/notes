@@ -1071,12 +1071,151 @@ others regional like ec2 --> aws regional services check availability per region
 	
 	
 	
+	local write forwarding 
+		issues write operations from read db instance with same db cluster
+		
+	add aws region --> global db feature allows you to add db to other regions -> need compatible instance (size etc matters) 
+	
+	cluster has options for links to db
 	
 	
+	-----Aurora Replicas - Auto Scaling:-----
 	
+		Client -> writer endpoint and reader endpoint.
+			replicas auto scaling --> if reader endpoint a lot of cpu usage then auto scaling.
+			
+		can make custom endpoint ---> example they are faster so better to run analytical queries.
+		
+	--Aurora Serverless--
+		Automated db instantiation and auto scaling based on usage.
+		good for infrequent, intermittent or unpredictable workloads.
+		no capacity planning needed.
+		pay per second, --> can be more cost effective
+		
+	--Globl Aurora--
+		Aurora Cross Region Read Replicas:
+			useful for disaster recovery.
+			simple to put in place.
+			
+		Aurorra Global Db (recommended)
+			1 primary region (read/write)
+			
+			***up to 5 secondary read only regions, lag less than 1 sec.
+				Up to 16 Read Replicas per secondary region.
+			
+			Helps for decreasing latency.
+			Promoting another region (for disaster recovery) RTO of <1 min.
+			
+			Typical cross-region replication takes less than 1 sec.
 	
+	--Aurora Machine Learning--
+		Enables ML based predictions to ur app via SQL.
+		Simple, optimized and secure integ b/w aws ML services.
+		
+			Amazon SageMaker (use with any ml model)
+			Amazon Comprehend (for sentiment analysis)
+			
+		No ML exp req
+		Use casse: fraud detection, ads targeting, sentiment analysis, product recommendations.
+		
+		
+	----RDS Backups----
+		Automated backups:
+			daily full backup.
+			transaction logs are backed up by RDS every 5min
+			ability to restore to any point in time. (from oldest backup to up to 5min ago)
+			1 to 35 days of retention, set 0 to disable.
+			
+		Manual DB snapshots.
+			manually triggered. Retention of backup as long as you want.
+			
+		Trick: in a stopped RDS db, you will pay for storage. Plan on stopping for long time 
+		---> do snapshot and restore it later.
+		
+	Aurora Backups:
+		1 to 35 days (not disabled)
+		point in time recovery in timeframe.
+		
+	Manual DB snapshots.
+		Manually triggered by user.
+		Retention as long as u want.
+		
+	--RDS and aurora restore options--
+		Restoring RDS/aurrora backup or snapshot creates a new db.
+		
+		Restoring MySQL RDS db from S3:
+			create baclup of ur in premises db.
+			store in S3restore bakcup file onto new rds instance running mysql.
+			
+			**JUST BACKUP OF DP
+			
+		Restoring MySQL Aurora cluster from s3.
+			**using percona xtrabackup
+			*then S3 then to  aurora cluster.
+			
+		Aurora DB Cloning.
+			Restoring new DB Cluster from an existing one.
+			Faster than snapshot and restore.
+			**copy on write protocl.
+				initially new db cluster uses same data as orginal cluster ( fast/efficient no copying needed)
+				
+				When updates made. new db cluster data, additional storage allocated and data is copied to be seperated.
+			
+		Very fast and cost effective.
+		***Useful to create a "staging" db from "production" db without impacting the prod db.
+		
+		
+	-----RDS and aurora security----	
+		
+		At-rest encryption:
+			db master and replicas encryption using AWS KMS - MUST BE defined at launch time.
+			if master not encrypted, read replicas cant be rencrypted.
+			create snapshot and restore as encrypted for un encrypted db.
+			
+		In flight encryption: TLS ready by default use AWS TLS root cert client-side.
+		IAM Auth: IAM roles to connect to your db (instead of username/pw)
+		Security Groups
+		No SSH Available except on RDS custom.
+		Audit logs can be enabled and sent to cloudwathc logs for retention
+		
+		
+	--Amazon RDS Proxy--
+		Fully managed db proxy for RDS.
+		
+		Allow apps to pool and share db connections established to db.
+		***improve db efficiency by reducing stress on db resources (CPU and RAM) and minimize open connections
+		serverless,autoscaling, highly available (multi-AZ)
+		***Reduced RDS & Aurora Failover time by up to 66%.
+		supports MySQL postgress mariadb ms sql and aurora 
+		no codes changes req for most apps.
+		Enforce IAM Auth for DB and securely store credentials in AWS Secrets Manager.
+		Never publically accessible. (only from VPC)
+		
+	Lambda Functions:
+		can multiply many times. can open connections to RDS so have open connections etc 
+		so can pool using RDS proxy and overload proxy not db
+		
+	--ElastiCache--
+		Same way RDS is to get managed relational DB.
+		Elasticache is to get managed redis or memcached.
+		Caches are in memory db with really high performance, low latency.
+		***helps reduce load off of db for read intensive workloads
+		helps make app stateless.
+		aws takes care of OS maint / pathcing, optimzations, setup, config, monitoring failure recovery and backups
+		***REQUIRES HEAVY APP CODE CHANGES.
 	
+		
 	
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 	
 	
 	AWS Cloud9  ---> Code Editor

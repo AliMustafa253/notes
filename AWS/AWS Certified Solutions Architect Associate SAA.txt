@@ -1048,29 +1048,21 @@ others regional like ec2 --> aws regional services check availability per region
 		Self healing with peer to peer replication
 		
 		Storage is striped across 100s of vol
+	
+	- One Aurora Instance takes writes (master)
+	- Failover in 30 sec.
+	- Master + up to 15 read replicas that can turn into masters in failover.
+		Support Cross Region Replication via Read Replicas
+		
+	** Writer Endpoint -> pointing to the master. Redirect to write instance always.
+	** Auto Scaling in the Read Replicas
+	
+	***** READER ENDPOINT - help connection load balancing - connects automatically to read replicas
+		
+	Auto fail over, backup and recovery, isolation adn security, push button scaling, auto patching, advanced monitoring.
+	Routine maintenance, backtrack
 		
 		
-		
-		
-		
-		
-		
-		
-		
-		
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	local write forwarding 
 		issues write operations from read db instance with same db cluster
 		

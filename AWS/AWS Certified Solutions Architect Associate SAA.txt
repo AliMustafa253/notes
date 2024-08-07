@@ -1336,6 +1336,61 @@ others regional like ec2 --> aws regional services check availability per region
 	message. This way they will be loosely coupled. Aws step function for tight coupling if uk what to do
 	
 	
+	eventBridge:
+		created event
+		
+		
+		----rules----
+		adding rule
+			{
+			  "source": ["com.aws.orders"]
+			}
+		catch all events from com.aws.orders
+		
+			{
+			  "source": ["aws.ec2"],
+			  "detail-type": ["EC2 Instance State-change Notification"],
+			  "detail": {
+				"state": ["terminated"]
+			  }
+			}
+		 process all instance-termination events on ec2
+		 
+		 the event must contain all the field names listed in the pattern
+		
+		send events.
+
+
+	---API destination---
+		API destinations are third-party partner targets that you can invoke using an HTTP endpoint. 
+		This lets you seamlessly integrate your applications with a range of SaaS partners without having to write code 
+		or deploy additional infrastructure. With API destinations, you can easily build modern SaaS-connected solutions, 
+		and reduce data silos by simplifying information exchange between applications.
+		
+	step functions
+
+	SnS challenge
+		{
+		  "source": ["com.aws.orders"],
+		  "detail": {
+			"category": ["lab-supplies"],
+			"location": [{
+			  "prefix": "us-"
+			}]
+		  }
+		}
+	---EventBridge Scheduler---
+		You can create rules that self-trigger on an automated schedule in EventBridge Scheduler using cron or rate expressions.
+		You can specify the time zone, and the minimum precision for schedules is 1 minute.
+		
+		
+	--Schema Registry--
+		 Schema Discovery will also detect changes to event schema and automatically generate new schema versions.
+		 
+		 
+		 Schema discovery automates the process of finding schemas and adding them to your registry. 
+		 
+		 
 ============================================================================================	
 	BUILDING EVENT DRIVEN ARCHITECTURES
 	

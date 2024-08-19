@@ -1197,11 +1197,88 @@ others regional like ec2 --> aws regional services check availability per region
 		***REQUIRES HEAVY APP CODE CHANGES.
 	
 		
+=======Route 53========
+
+	---DNS---
+		translates human friendly hostnames into the machine IP addresses.
+		DNS backbone of the internet, uses hierarchical naming structure.
+		
+		--DNS terminologies--
+		Domain Registrar: Amazon Route 53, GoDaddy...
+		DNS Records: A,AAA,CNAME,NS,...
+		Zone file: contains DNS records.
+		Name Servers: Resolves DNS Queries (Authoritative or non)
+		TLD (top level domain): .com, .us. in
+		SLD (second level domain) amazon.com,google.com
+		sub domain === www.
+		FQDN == fully qualified domain name. api.google.com
+		http: protocol
+		
+	How DNS Works
+		
+		web browser wants to access example.com
+		Local DNS Server --> assigned by ISp dynamically or company.
+			If not thr --> Root DNS Server example.com? managed by ICANN
+			But ik .com NS 1.2.3.4 so go thr
+			--> TLD DNS SERVER for (.com) Managed by IANA (branch of ICANN)
+				I know a server that is example.com gives public id.
+				--> SLD DNS Server (domain registrar) ---> do you know about example.com? yes I do
+		<--- IP sent back
+		
+		
+	---Route 53---
 	
+	Highly available,scalable, fully managed and authorative DNS.
+		Authorative DNS = customer can update DNS records.
 		
+		Route 53 is also a Domain Registrar
+		Ability to check health of your resources.
+		***Only AWS service with provides 100% Availability.
+		53 = reference to traditional DNS port
 		
+		---Records---
+			How you want to route traffic for a domain.
+			
+			Each records contains:
+				Domain/subdomain name e.g example.com
+				
+				Record Type e.g A or AAAA
+				
+				Value e.g 12.34.56.78 route to real ec2 for eg
+				
+				Routing policy - route 53 responds to queries
+				
+				TTL - amount of time the record cached at DNS Resolvers.
+				
+			Route 53 supports DNS record types:
+				A/AAAA/CNAME/NS
+				
+		---Record Types---
 		
+			A - maps hostname to IPv4
+			
+			AAAA- maps hostname to IPv6
+			
+			CNAME - maps hostname to another hostname 
+					target can be A or AAAA record
+					cant create CNAME record for top node of DNS namespace (zone apex)
+					
+			NS - Name Servers for the Hosted Zone.
+					control how the traffic is routed to domain.
+					
+		---Hosted Zones---
+			container for records that define how to route traffic to a domain.
+			
+			Public Hosted Zones: contains records specifying how to route traffic to internet
+			
+			Private Hosted Zones: within one or more VPC (private domain names)
+			
+			You pay 0.5$ per month per hosted zone.
 		
+		Records:
+			e.g test.example.com  eg NS --> A value --> route test to an ec2 with value. So it can go thr
+			if on cloudshell -> install dig and nslookup via sudo yum
+				warna works khud
 		
 		
 		

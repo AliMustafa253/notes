@@ -1285,7 +1285,179 @@ others regional like ec2 --> aws regional services check availability per region
 		
 		
 		
+		
+		
+	------AWS Integration and messaging-------
+
+		When we start to deploy multiple applications they need to communicate.
+		Two patterns 
+			- Synchronous communication (app to app) direct connect
+					buying service --> shipping service
+			- Asynchronous communication: (app to queue to app)
+					
+		Synchronous b/w app --> one app can overwhelm the other.
+		E.g 1000 videos encoded but usually 10 --> video service = overburdened.
+			DECOUPLE:
+				SQS: queu model
+				SNS: pub/sub model
+				Kinessi: real time streaming model
+		
+		-----SQS-----
+			Simple Queueing Service.
+			
+			Producer --> send messages into sqs queue. (e.g process order) (can multiple)
+			
+			SQS Queue
+			
+			Consumer ---> Poll messages and process and delete from queue (can be multiple)
+			
+			-oldest offering (10 yrs+ old)
+			-fully managed service, USED TO DECOUPLE APPLICATIONS.
+			
+			Attributes:
+				- Unlimited Throughput, unlimited number of messages in queue.
+				- Default retention of messages: 4 days, maximum 14 days.
+				- low latency (<10 ms on publish and receive)
+				- limitation of 256KB per message sent.
+				
+			- Can have duplicate messages (atleast once delivery, occassionally)
+			- Can have out of order messages (best effort ordering)
+			
+		---SQS Producing messages---
+			messages -> up to 256 kb. --> send to sqs.
+			Produced to SQS using SDK (SendMessage API)
+			message is persisted in SQS until a consumer deletes it.
+			message retention: default 4 days upto 14 days
+			
+			Example: send order to process:
+				orderid, customerid, attributes.
+			SQS standard: unlimited Throughput
+		
+		---SQS Consuming Messages---
+			- Consumers (run on EC2, own servers, aws lambda)
+			- Poll SQS for messages (receive up to 10 messages at a time)
+			- Process the messages (e.g insert messages into an RDS db)
+			- Delete messages from queue using DeleteMessage API
+			
+			
+			consumer receive and process messages in parallel. by poll function
+			at least once delivery.
+			best effort message ordering.
+			consumer delete messages after processing them.
+			Scale consumers horizontally to improve throughput processing.
+			
+		---SQS with ASG---
+			running in ASG ec2 instance. poll for messages in sqs queue.
+			
+			Cloudwatch metric --> queue length --> cloudwatch alarm --> increase asg scale
 	
+		--SQS to decouple between application tiers--
+			request and actual processing of file can be in diff sys --> decouplke e.gateway
+			eg in backend processing and front end diff. scale seperately. robust and scalable
+			
+		SQS security:
+			Encryption: 
+				using https api.
+				at rest encryption using kms.
+				client side encrtipn
+			
+			- Access Controls: IAM policies.
+			
+			- SQS Access Policies (similar to s3 bucket policies)
+				useful for cross acc access to SQS queues.
+				useful for allowing other services (SNS,S3..) to write an SQS queue.
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+===========SERVERLESS============
+
+		Serverless = anything remotely managed, db messages storages etc.
+			As long as you dont manage it.
+		
+		AWS Lambda
+		DynamoDb	Trigger lambdafunction
+		AWS Cognito
+		API Gateway
+		S3
+		SNS SQS
+		Kinesis data
+		auroroa serverless
+		step function
+		fargate
+		
+	------LAMBDA-----
+	
+		- virtual functions - no servers.
+		- limited by time - short executions.
+		- run on demand.
+		- scaling is automated.
+		
+		Easy pricing: pay per request and compute time.
+					  free tier of 1,000,000 aws lambda and 400k gbs
+					  
+		integrated with aws services loads.
+		integrated with many languages.
+		easy monitoring through aws cloudwatch.
+		easy to get more resources per functions (up to 10 gb of ram)
+		increase RAM increases CPU and network speed.
+		
+		custom runtime API (rust and golang)
+		Lambda Container Image.
+			ECS / Fargate to run instead docker images.
+			container image must implement lambda runtime api.
+			
+		API Gateway:
+			Rest API created
+		
+		Kinesis: 
+			data trANSFORMATION
+		EventBridge:
+			react to things on aws
+		DynamoDb:	
+			Trigger lambdafunction on db
+		SQS:
+			process messages from sqs queues
+			
+		example --> thumbail creation serverless
+			new thumbnail in s3 and metadata in dynamoDb
+			
+			Serverless Cron Job:
+				generate job every 5min or monday etc.
+				create a cloudwatch event bridge rule that triggers every one hour.
+				serverless --> cloudwatch and lambda.
+				
+		cheap.
+		
+	---Lambda limits----
+		Execution:
+			memory allocation: 128MB - 10GB (1MB increments)
+			- Max execution time: 900 sec (15min)
+			- Env var (4KB)
+			- Disk Capacity 512MB to 10GB (/tmp)
+			- concurrency executions: 1000
+			
+		Deployment:
+			- lambda function deployment size: 50mb (compressed.zip)
+			- size of uncompressed (code + dependencies): 250MB
+			- can use /tmp directory to load other fiels at startup
+			- size of env: 4 KB
+			
+	----Lambda SnapStart----
+		- JAVA performance up to 10x better at no extra cost. (atleast java 11 or above)
+		- enabled - pre initilized state used. initial phase is gone.
+			Takse snapshot of memeory and disk state of initialized function.
+			snapshot is cached for low latency access.
+		
+		
 	
 	AWS Cloud9  ---> Code Editor
 	

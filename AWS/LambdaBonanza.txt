@@ -1,0 +1,153 @@
+src react unified ui 
+create channel
+	dropdown --> type of channel --> s3 channel info then api call is done s3 ki call
+	
+
+regions sdk --> jismein kam hain uss k sdk ko bhi update kren ya kya kren.
+Java --> expects region in _ node --> expects in -
+
+Make it so java sdk used in all?
+
+s3plugin --> 2 files.
+credentials --> required? anas k paas honge.
+
+
+	SQS and Lambda Function EED
+	DB record already made.
+	DB connectivity krwaani
+	sqs --> db 2 functions --> publisher and subscriber --> publisher read values from db and iss main se job execute krna... subscriber ---> inn
+	
+Instead of checking db 
+	--> thread runs like a service which takes records from all jobs in processing state
+	--> if a job fails, we need to restart eed delivery server, no fail mechanism.
+			first 3 times --> from the system. then gives it a status as failed.
+			cronjob --> schedule email --> want to send an email at 2 am --> schedule for a particular day in scheduler thats diff.
+		all failed jobs can be restarted. with sqs/sns etc?
+		
+		
+		sqs, lambda, enhance current functionality.
+		
+		as soon as job is registered on delivery server --> publish onto the sqs server.
+	
+		deliveryserver --> dependent on it many projects --> eg s3watch requires s3 bucket.
+							e.g ftp channel.
+							currently focus is on eed, we can focus on the rest later on.
+							one subscriber one publisher needed.
+							
+		eg s3 creates own record copy from the db 
+			replace thread and job manager with sqs
+			
+			lambda function --> triggered by delivery server, then moves to sqs, message received.
+			---> triggers another lambda function that sends an email.
+			
+			Lambda function --> first called by REST API endpoint
+				Lambda --> put it into a docker image maybe, depends on how we deploy it?
+				
+			API gateway associate it with lambda
+				--> instead of calling eed call api gateway during delivery server update.
+				
+				
+	KeyWords instead of LLM in log file, generate notification that sends it to dev or devops etc.
+	
+	
+	-- hibernate? possible
+	
+	-- environment variable? possible
+
+
+
+	serverless --> faster to develop using service platforms.
+	no management of servers --> dont care about platform --> focus is on solving business problems
+	self auto scale
+	serverless -> sometimes cheaper
+	
+	Cold start: 
+		Time spent on preparing execution context
+	
+	disadvantages:
+	concurrent requests: coldstart more --> more cost.
+		provisional concurrency, power testing.
+		
+	testing == ez but	
+	integration testing = hard --> diff acc diff verisons might be required.
+	CANT RUN ALL APP IN SERVERLESS --> need to rethink it. all
+	
+	--AWS SAM--
+		model functions api,dbs 
+		Cloud setup extension of cloudformation used to speed up cloud setup
+		would need to upload code and configure manually.
+		
+	Lambda internals:
+		COLD START:
+			Spins new VM.
+			Loads code from S3 package.
+			runs init code.
+		
+			freezes context for 15min. reuse context.
+			
+		Place outside handler:
+			DB connection
+			s3 connection.
+			loading file in memory.
+			caching api calls.
+			
+		Execution Context:
+			DB connections: controls itself.
+		
+		AWS SDK: use v2
+			individual services use only.
+		Prefer simpler dependency injection frameworks.
+		
+		avoid default configuration for credentials lookup.
+			Use envvariablecredentialprovider.	
+		Specify region:
+		
+		
+		runs handler code.
+		
+		run perf test --> e.g use power tuning state machine with aws step functions
+			
+		log group (same element) (1 api gateway or function) --> log stream (for each container) ---> log event
+		
+		ELIXIR PROUDUCTION DB:
+			jdbc:mysql://127.0.0.1:3306/tangoproduction?useUnicode=true&characterEncoding=utf8&autoReconnect=true	
+			//root/admin
+			tango_dbuser/tango123
+			
+			deltadefenders_dbuser/o&sF7KRnvq
+			jdbc:mysql://dev-squads-mysql8-upgraded-cluster.cluster-cik7mwboqoqo.us-east-2.rds.amazonaws.com:3306/deltadefenders_elixirproduction?useUnicode=true&characterEncoding=utf8&autoReconnect=true
+		
+		
+		
+	handler --> invoked when event done
+	
+	tango elixir process in some hours.
+	
+	eed takes days
+	
+	for credit card etc email.
+	delivery 3 days baad --> real pain point.
+	
+	lambda --> ez to handle scaling for customers acc to req
+	
+	management issue for services fixes that
+	performance
+	cost
+	
+	enbd 3 days request.
+	
+	natural fit to eco system. aws services being used like sns ses
+	
+	sqs only when multiple requests. eg 10 limit and u have more than 10.
+	
+	500,000 times invoked lambda and queue also processed
+	
+	cant call same function to process same email twice.
+	so lambda cant be used. diff content diff bank statement etc. need a seperate function call.
+	
+	so send it to sqs directly, 
+	
+	threadpool ko handle krna. 1 sec delay rn make it 5sec or so.
+	
+	architectural diagram main zaroorat hoti.
+	*****wizardsLambdaRole ---> defined role so mention that. will need to mention it during report.

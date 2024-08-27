@@ -1196,7 +1196,95 @@ others regional like ec2 --> aws regional services check availability per region
 		aws takes care of OS maint / pathcing, optimzations, setup, config, monitoring failure recovery and backups
 		***REQUIRES HEAVY APP CODE CHANGES.
 	
+			--ElastiCache Solution Architecture - DB Cache--
 		
+		Applications queries ElastiCache, if not available, get from RDS and store in Elasticache
+		---> cache hit
+		---> cache miss ---> read from db --> write to cache
+		LAZY LOADING
+		
+		helps relievve load in RDS
+		Cache must have an invalidation strategy to make sure only the most current data is used
+		
+	--ElastiCache Solutional Architecture User Session--
+	
+		User logs into any of the applications.
+		App writes session data into ElastiCache.
+		User hits another instance of our app.
+		Instance retrieves the data and the user is already logged in --> stateless
+
+
+	--Redis v.s Memcached--
+	
+		Redis:	
+			Multi AZ with auto failover.
+			Read Replicas to scale reads and have high availability.
+			Data Duravility using AOF persistence.
+			Back and restore featurues
+			Support sets and sorted sets.
+			
+				Replication
+			
+		Memcached:	for able to lose data etc
+			Multi-node for partitioning of data. (sharding)
+			No high availability (replication)
+			Non persistent
+			No backup and restore.
+			Mutli threaded architecture
+	
+				Sharding
+ 	
+ 		
+		cluster mode for multiple shards in multiple servers.
+ 		
+ 		
+	--Cache Security--
+		ElastiCache supports IAM Auth for Redis.
+		IAM policies on ElastiCache are only used for AWS API-level security.
+ 		
+		Redis AUTH:
+			You can set a password/token when u create a cluster.
+			Extra level of secutiy and support SSL in flight encryption.
+			
+		MemCached:
+			Supports Sasl-based auth
+			
+	--Patterns--
+		
+		Lazy Loading: all the read data is cached, data can become stale in achce.
+		
+		Write Through: Adds or update data in cache when written to a DB
+						(no stale data)
+		
+		Session Store: store temp session data in a cache (using TTL features)
+		
+		Redis Use Case:
+			Gaming Leaderboards --> computationally complex.
+			***Redis Sorted sets guarantee both uniqueness and elemnt ordering.
+			Each time a new element added, its ranked in real time and added in correct order.
+			
+			
+	Important ports:
+
+		FTP: 21
+		SSH: 22
+		SFTP: 22 (same as SSH)
+		HTTP: 80
+		HTTPS: 443
+
+	vs RDS Databases ports:
+
+		PostgreSQL: 5432
+		MySQL: 3306
+		Oracle RDS: 1521
+		MSSQL Server: 1433
+		MariaDB: 3306 (same as MySQL)
+		Aurora: 5432 (if PostgreSQL compatible) or 3306 (if MySQL compatible)
+ 		
+ 		
+	Multi AZ --> same connection string in RDS, read replicas have diff	
+	Aurora Global DB allows multi region aurora dbs with 5 secondary
+	
 =======Route 53========
 
 	---DNS---

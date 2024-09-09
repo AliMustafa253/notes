@@ -85,3 +85,5 @@ your data and quickly implement complex query workflows combining data access wi
 		Retrieval 
 		Postprocessing	--> e.g minimum similarity score
 		Response synthesis
+		
+	

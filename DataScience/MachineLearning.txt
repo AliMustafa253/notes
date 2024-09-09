@@ -152,6 +152,23 @@ TENSOR FLOW
 		
 		
 	===========================================
+	----Transformers-----
+			Can pay attention.
+			
+			GPT generative pre trained transformer model - 3
+			
+		Encoder and a Decoder
+		Sequence to sequence learning. predicts next word. encoder -> generates encoding to see which part is relevant.
+		Decoder takes encodings and makes context.
+		
+		Semi Supervised learning.
+			Fine tuned through supervised learning earlier large data with unsupervised.
+		
+		--Attention mechanism--
+			tries to understand context. RNN must run in sequence.
+			Can run in parallel so much better learning times.
+			
+		
 	--BERT--
 		
 		Encoders 
@@ -175,6 +192,47 @@ TENSOR FLOW
 		-Few Shot learning
 			
 			
+			
+=====LLM======
+
+	Essentially, learn most of the internet things and let machine learn things.
+	understands questions and gives an appropriate response.
+	deep learning. --> Transformers
+	
+	Larger than other models.
+	General Purpose.
+	Ability to be pre trained and fine tuned.
+
+	Parameters --> tiny bits of information to understand conversations. Massive amount of parameters in LLM
+	
+	LLM --> general purpose --> wide variety of text data from the internet.
+	Can fine tune later
+	
+	basics on language first --> customized by fine tuning
+	Few shot scenario --> minial data to train model.
+	zero-shot --> no additional data
+	
+	Transformers = subset of deep learning.
+	
+	--Deep Learning--
+		Excel at finding patterns in complex data due to network structure
+		Each neuron has math function with weights. updated using optimization.
+		
+		CNN
+			Vision classification --> struggles at language.
+			
+		RNN
+			Good for nlp before neural networks
+			not good for long inputs. miss context
+			cannot be run parallel due to missing context. too long
+			
+		---> Transformers ---> can train in a better way. superior understanding.
+
+
+
+
+
+
 	
 		
 	

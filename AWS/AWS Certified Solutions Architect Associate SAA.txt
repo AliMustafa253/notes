@@ -1977,3 +1977,5 @@ others regional like ec2 --> aws regional services check availability per region
 	Activity tasks v.s wait for callback
 	
 	push v.s pull
+	
+	

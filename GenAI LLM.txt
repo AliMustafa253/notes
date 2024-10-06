@@ -126,7 +126,7 @@ How an LLM works:
 		
 		greedy decoding --> pick highest probability --> good for short generation.
 		more natural ---> random sampling --> (weighted with probability).
-		
+	do_sample = true
 	***Sample top K and Top P
 		Top K ---> only choose from top K tokens, randomness but more likely to be reasonable.
 		Top P ---> predictions combine probability doesnt exceed e.g 0.3
@@ -161,9 +161,155 @@ How an LLM works:
 			optimize and deploy model for inference.
 			Augment model and build LLM powered applications.
 			
+	-----------------------------------	
+	Amazon SageMaker
+	
+		s3 bucket take resources for lab
+		
+		pytorch
+		torchdata
+		
+		huggingface --> transformers	datasets.
+		
+		context window is important 
+		anything above 4-5 few shot doesnt work generally
 		
 		
 			
+	================================
+	LLM PRETRAINING AND SCALING LAWS
+
+	
+	Model hubs ---> strengths etc and info so cool
+	
+	pre-training at a high level. Vast amount of unstructured data.
+	
+	self-supervised learning step. structure etc of language learned.
+	model weights trained to minimize loss of training objective.
+	encoder --> trains token vector representation.
+	
+	1-3% tokens only used for pre training.
+	
+	Auto-Encoding
+	encoder only trained using masked lnaguage modeling (MLM)
+		aka auto-encoding
+	
+		sentiment analysis
+		NER
+		word classification
 		
+	AutoRegressive models (decoder only)	Casual Language modeling (CLM)
+		Objective: predict next token. model iterates one by one to predict.
+		context is unidirectional in autoregressive
+		
+		TExt Generation.
+		Other emergent behavior
+		
+	
+	Sequence to Sequence models:
+		Span Corruption: <MASK> tokens <X> sentinel token added instead of mask.
+		
+		Reconstruct the span.
+		
+		Translation
+		Text summarization
+		Question answering.
+		
+		------> good for body of text as input and output.
+		
+	------------------------------------------
+	Quantization ---> reduce memory required by reducing
+						32 bit to 16bit floating point 
+	
+	BFLOAT16 --> brainfloating point format. hybrid b/w top 2
+	not good for integer calculations
+	
+	4GB for 1B to 2GB in 16-b 8Bit -> 1GB
+	
+	---multi gpus 
+		-Distribute Data Parrallel (DDP)
+			copy model to each gpu, batches, each data simultanous and synchronized.
+			
+			model weights, gratients etc fit on one gpu.
+		-Fully Sharded Data Parallel (FSDP)
+			Sharding data 0 = data overlap, model doesnt fit in one gpu
+		
+		optimizer state == most GPU RAM
+		
+		Zero/sharding ---> distributes all in all gpu (gradients parameters ,optimizer states.
+		gradients/optimizer and parameters can be sharded with diff stages 
+		
+		can work with models too big for one chip. FSDP(GET WEIGHTS B4 Forward and backward pass)
+		get weights from all gpus. then synchronize at final step.
+		
+		sharding factor == communication volume increases with more sharding
+		
+	Combining data parallelism with pipeline parallelism is known as 2D parallelism.
+	We can achieve 3D parallelism by combining data parallelism 
+	with both pipeline parallelism and tensor parallelism simultaneously.
+	----------------------------
+	Goal: maximize model performance (minimize loss)
+	
+	Scaling choice dataset size (number of tokens)
+	Gpu ram etc issue.
+	
+	compute budget --- dataset size --- model size 
+	CAN DO PERFORMANCE TEST
+	
+	compute budget usually hard constraint. 
+		hardware,time,budget
+		
+		*****chinchilla method == ideal usually x20 tokens of parameters
+		
+	----------------------------
+	======pre training for domain adaptation
+		e.g Legal writing == using very specific words like mens rea etc
+		
+	pre training will make better models for this.
+	
+	bloomberg gpt = finance and general data.
+		51% financial data 
+		
+		
+===================================================
+	INSTRUCTION FINE TUNING
+	
+	instructions prompts
+	
+		limitations of in-context 
+			not great in small models.
+			takes context window space.
+		
+	Instruction fine tuning:
+		classify this review:
+		I don't like this review:
+		Sentiment: negative
+		
+	prompt ---> completion
+	multiple these.
+	
+	prompt will give instructions.
+	
+	Full Fine Tuning === updates all parameters.
+	Required enough resources for it.
+	
+	First step:
+		Training data.
+		
+	training validation and test splits.
+	
+	fine tuning:
+		LLM completion compared with Label:
+		
+		************probability distribution ---> compare ---> standard cross
+		entropyfunction to calculate loss. update using calculated loss in
+		standard backpropogation in several epochs.
+		
+		
+		
+		
+	
+	
+	
 			
 	

@@ -306,7 +306,36 @@ How an LLM works:
 		standard backpropogation in several epochs.
 		
 		
+	Summarize the following text:
+	[ Example Text ]
+	[ Example Completion ]
+	500-1000 examples can work for good fine tuning
+	
+	*** Catastrophic Forgetting:
+		full fine tuning process --> modifies weights of original LLM.
 		
+		can forget other tasks while improving only one task.
+		
+	Catastrophic forgetting is a problem in both supervised and unsupervised learning tasks.
+	In unsupervised learning, it can occur when the model is trained on a new dataset
+	that is different from the one used during pre-training.
+	
+	One way to mitigate catastrophic forgetting is by using regularization techniques to limit
+	the amount of change that can be made to the weights of the model during training. This can
+	help to preserve the information learned during earlier training phases and prevent overfitting
+	to the new data.
+	
+	--------------------------------
+	multi-task instruction fine tuning:
+		
+		Improve performance of model over multiple epochs and updated weights.
+		
+	---> drawback ---> 50k-100000 examples 
+		FLAN ---> e.g --> FLAN-T5 -->
+		
+	** Including diff ways to say the same thing helps a model generalize things.
+	
+	
 		
 	
 	

@@ -62,6 +62,9 @@ LangChain's power lies in its six key modules:
 
 	- Callbacks: Functions that are triggered to perform at specific points during the duration of an LLM run
 	
+	
+	
+	
 		
 =============LlamaIndex===============
 
@@ -85,3 +88,5 @@ your data and quickly implement complex query workflows combining data access wi
 		Retrieval 
 		Postprocessing	--> e.g minimum similarity score
 		Response synthesis
+		
+	

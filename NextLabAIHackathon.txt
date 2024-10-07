@@ -236,8 +236,72 @@ technological aspect.
 		for showcasing.
 		not for anthropic
 		
+		
+- Met product managers. Not too detailed answers.
+
+- Book interesting for more than one publishing house. Place offer. Counter Offer from other pub house.
+- Editing there, sending book to another - reading book in 24 hours? who? Really sure about content to
+calculate ---> if paying more is better than other pub house ---> high risk or low risk decision.
+- Scouts in US --> 1000$s to just look into books in the USA and sending reports once a week.
+- American ppl pick books for polish market.
+- Ask for good books to read, but they usually dont have time to.
+- Many books read but no one even reads it. Just get them translated but wont even be good sometimes.
+
+- regions based decision for cultures etc?
+
+- 15 yrs no contact --> journalistic project. 
+
+- 50%+ every year. invested in 20+ startups
+
+
+Deployment ---> 
+
+refinement --> beta testing. Functionality is accurate or not
+
+	Additional money on tokens. Lower cost using prompt caching
+	
+	Contextual retrieval ---> can cause an issue if first one is inaccurate.
+	
+	
 
 	
 	
 	
+	---> Deployment
 		
+	---> Prompt optimization, reduce token cost.
+	
+	---> Chapter Chunking.
+		chapters ---> name from frontend
+	
+		common books
+			error --> allow refresh or user to click on error or w.e to restart.
+		Remember chapter headings not content
+		revised book = chunking.
+		
+	---> Pdf Password.
+	
+	---> Refinement ---> storing information should be removed
+						removing books from storage change db etc.
+						llm prompt text in files instead of db.
+						
+	---> Loading visualized on frontend?
+			Limit pdf books? not more than 20mb for now.
+			
+	---> Dashboard. overtime.
+			Output --> popup message, asking for user feedback.
+			
+			
+				Potential future ideas:
+				
+				RAG --> mockup data is fine.
+					pinecone or llamaindex instead of mongo for db
+				
+				EDA LSTM for noise in pdf 
+				hybrid search...semantic search (easier to do)
+					word count letter count etc. context = measure
+					formula to see repeated words. 
+					
+				TruLens ---> both with and without RAG.
+				
+	

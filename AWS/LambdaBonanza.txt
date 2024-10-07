@@ -117,8 +117,7 @@ Instead of checking db
 			deltadefenders_dbuser/o&sF7KRnvq
 			jdbc:mysql://dev-squads-mysql8-upgraded-cluster.cluster-cik7mwboqoqo.us-east-2.rds.amazonaws.com:3306/deltadefenders_elixirproduction?useUnicode=true&characterEncoding=utf8&autoReconnect=true
 		
-		
-		
+	
 	handler --> invoked when event done
 	
 	tango elixir process in some hours.
@@ -141,6 +140,36 @@ Instead of checking db
 	sqs only when multiple requests. eg 10 limit and u have more than 10.
 	
 	500,000 times invoked lambda and queue also processed
+		Current implementation ---> flaws, 
+		
+	EED --> all emails through eed.
+			Major part: sending and then tracking.
+			Normally email sent but tracking is a major aspect.
+			
+			email body --> variables and data can be used.
+			bulk mail normal email is one to one. EED is in a batch and in a bulk.
+		
+	EED used when for e.g business has to process emails. 
+		Made when multiple people's work has to used to return to end users systems.
+			Email = one to one. on the spot.
+			EED --> jobs are monitored ---> In a batch jobs processed.
+		
+		- Job execute --> email submit hoti
+		- Manually multiple/Message to all users -> configure to eed. (dont mention this) Product side not clear.
+		
+		Manually koi kaam nahi. queue given and lambda function runs. when job processed in lambda.
+		CloudWatch configured for logs.
+		Dev Cost --> reduced significantly --> less dev effort 
+		Each api is a microservice --> dont need a huge architecture for it --> available for all.
+		
+		
+		
+	1,000 execute hote bus but business requires 2,000 to execute. 
+		So we currently just make 2 systems.
+		Now the organization is done with 2k and required with 1k. Need someone to close it.
+		
+	Bank Statement ---> end of year only. resource management.
+	
 	
 	cant call same function to process same email twice.
 	so lambda cant be used. diff content diff bank statement etc. need a seperate function call.
@@ -151,3 +180,124 @@ Instead of checking db
 	
 	architectural diagram main zaroorat hoti.
 	*****wizardsLambdaRole ---> defined role so mention that. will need to mention it during report.
+	
+	Terraform code ---> 
+		replicable and restorable.
+	IAM roles
+	Data Encryption
+	VPC
+		Eventually lambda in VPC with security groups 
+	logs 
+		Monitoring on log in
+	
+	
+	SQS 
+	
+	Lambda
+		
+		
+		analytical skills.
+		critical skills.
+		
+		
+
+	Imagine it's the end of the year, and your company has to deliver over 500,000 bank statements. The scale of this operation could easily stretch over 3-4 days, requiring new servers to speed up the process. It's a scenario that would put anyone on edge, worrying about the time, cost, and coordination involved.
+
+	But what if I told you that with our ServerlessEED solution, this massive task could be accomplished in just a few hours? Our system not only ensures a smooth and efficient process but also does it at a lower cost and with minimal demand on your team's resources.
+
+	Greetings everyone, My name is Ali Mustafa and I am representing The Wizards of AWS
+	
+	Our dev team consists of Sabeel Ijaz, Nouman Ahmed and me.
+	Faizan Tariq is our QA, Mohammad Mobeen is the student intern.
+	Lastly, joining us from the USA branch, Onyi Asoluka is our DevOps Engineer.
+	
+	So in order to fully understand our implementation, we need to talk about EED first.
+	So what exactly is EED?
+	(EED) or Enhanced Email Delivery is a solution used in Tango for efficient email delivery. It provides key benefits, such as tracking emails and sending bulk emails, rather than a one-to-one delivery system like in normal emails.
+
+	For instance, when a company needs to send electricity bills to all its customers, EED can manage the varying attachments and parameters for each customer with ease, also allowing bulk emails to be sent all at once.
+
+	[CURRENT IMPLEMENTATION]
+	
+	Here is a diagram of the current implementation, EED utilizes the Delivery Job Manager to manage jobs through threads, handling both email dispatch and delivery status updates in the database. However, this approach has its challenges, particularly in terms of prolonged job completion times.
+	
+	[PROBLEMS]
+	
+	The example I provided earlier is a real-world scenario faced by ENBD as well. While EED has simplified bulk email
+	sending, there are still challenges that remain.
+	
+
+	EED currently creates a new thread for each email, causing slower batch job completion. This can result in bulk 
+	email processes taking several days to finish.
+	
+
+	To handle high loads, EED lacks an auto-scaling feature, requiring manual resource management. This becomes a 
+	bottleneck during bulk email generation, as additional resources must be provisioned to avoid delays. Once the bulk 
+	phase is complete, resources need to be manually reduced to prevent waste and extra costs, requiring either 
+	efficient DevOps automation or continuous monitoring.
+	
+	Finally, the current system is prone to issues in various things like job submissions, retries and load handling.
+	
+	[NEW IMPLEMENTATION]
+	
+	In the new implementation we removed the use threads, previously each new email needed a new thread. 
+	now, job manager adds a queue of messages to the SQS, which invokes a lambda function 
+	the lambda function generates an email through your designated email server. 
+	
+	
+	[BENEFITS]
+	
+	These changes naturally align with the Elixir ecosystem as we transition to using AWS services like SNS and SES, enabling easier integration. With the benefits of a serverless architecture, we can reduce the bulk email generation time in the previous enbd example from 3-4 days to just a few hours.
+
+	Auto-scaling, enabled through SQS and Lambda functions, significantly lowers costs by dynamically adjusting server capacity based on demand. This boosts performance during peak hours and reduces it when demand drops, eliminating the need for DevOps intervention since AWS manages the server-side operations, and our employees only need to focus on the code.
+
+	Additionally, the retry mechanism in SQS enhances upon the current implementation, 
+	
+	and the microservices architecture offers flexibility to use any language or tools, you are not bound to a single language or version. Allowing a developer more ease to focus on the important things.
+	It also provides superior decoupling, fault tolerance, and load balancing compared to threads.
+	
+	Now onyi will explain the security and compliance related aspects of our implementation.
+	
+	
+
+	[FUTURE PROSPECTS]
+	
+	Thank you onyi, moving forward 
+	
+	Implementing the delivery server this way creates a scalable and future-proof solution. This 
+	setup allows Lambda functions to decouple various Elixir product features, simplifying integration and expansion.
+
+	By leveraging Lambda functions, we can reduce development time and accelerate feature delivery. This approach also enables seamless upgrades to our technology stack, ensuring long-term 
+	adaptability with minimal effort. 
+	I personally am looking forward to integrating more aws technologies and seeing Elixir further maintain it's compettive edge.
+	
+	Thats it for our presentation, do let me know if you have any questions. Thank you for you time.
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	These new changes are a natural fit to the Elixir eco system. as we are moving forwards to using aws services like sns ses and this will allow easy integration as well.
+	
+	With the implementation benefits of this serverless architecture we can do the bulk email generation that took 3-4 days in our previous example to be generated in just a few hours.
+	
+	and the reduce the costs by having auto scaling enabled with the help of SQS and lambda functions.
+	
+	The auto scaling improves the performance significantly as well by allowing you to have more servers assigned to the email delivery at peak hours and automatically reducing it when it is no longer required. This also frees up the need for devOps intervention since AWS handles all the server side implementation for us.
+	
+	retry mechanism in sqs is significantly improving upon the current implementation.....
+	
+	no depedency on particular technology, you can use your desired language or tools as they are a microservice. Moreover, Queues provide superior decoupling, simplified concurrency, fault tolerance, scalability, and load balancing compared to threads

@@ -1456,12 +1456,33 @@ others regional like ec2 --> aws regional services check availability per region
 				useful for allowing other services (SNS,S3..) to write an SQS queue.
 				
 				
+		---SQS Message Visibility Timeout---
+			After a message is polled by a consumer, it becomes invisible to toher consumers.
+			By default the "message visibility timeout" is 30 seconds.
+			30 sec to process aka.
+			message visible in SQS after timeout
+			
+			
+			........
 				
 				
 				
 				
-				
-				
+			
+
+
+
+
+		--SQS FIFO Queue--
+			- Limited throughput: 300 msg/s without batching, 3000 msg/s with 
+			- Exactly once send capability.
+			- Messages are processed in order by consumption.
+			
+		
+
+
+
+			
 				
 				
 				

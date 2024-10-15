@@ -336,9 +336,191 @@ How an LLM works:
 	** Including diff ways to say the same thing helps a model generalize things.
 	
 	
+	----------------------------------
+	Model Evaluation
+
+	traditional ML
+	
+		Accuracy == correct pred/total prediction
 		
-	
-	
-	
+		for known outputs
+		
+	LLM 
+		ROUGE OR BLEU
+		n-gram
+		
+		ROUGE: 
+			***Text summarization
+			compares a summary to one or more reference summaries.
 			
+			Recall = unigrams matches/unigrams in reference = 1 
+			Precision = unigram matches/ unigrams in output = 0.8
+			
+			F1 = both = 2 x precision x recall/precision + recall
+
+		bi grams = ROUGE-2 = lower scores in example.
+		
+		Longest common subsequence (LCS):
+		LCS value = used
+		
+		ROUGE = can give bad a good example
+			
+		BLEU:
+			***Used for text translation.
+			compares with human tagged ones.
+			
+			good for the quality of ML text.
+			
+			avg(precision across range of n-gram sizes)
+			
+	====================
+	BENCHMARKS
 	
+		GLUE SUPERGLUE
+		
+			GLUE --> sentinment analysis and question answers etc.
+			
+			SuperGlue improved limitations.
+			
+		result pages for models.
+		
+	(MMLU) Massive MultiTask Language Understanding.
+	
+	Big Bench 
+		Physics software developments maths etc
+		
+	****HELM frameworks
+		Holistic Evaluations: 7 metrics like accuracy fairness bias toxiicty etc.
+		
+		
+	=====================
+	PEFT
+		memory for gradient temp memory forward activation trianable weights optimiziation etc.
+		
+	Only updates small subset of parameters.
+	Other techniques adds new layers.
+	Frozen Weights. 15-20% LLM weights updated.
+	
+	---> smaller footprints.
+	
+	PEFT Methods:
+	
+		Selective:
+			subset of initial LLM params fine-tuned.
+			Mixed performance.
+			
+		Reparameterizations:
+			Reduce params by using low-rank representative.
+			LoRA
+			
+		Additive:
+			Add trainable layers:
+				Adapters.
+				Soft Prompts: mnaipulative inputs.
+					Prompt Tuning.
+					
+	----------------------
+	LoRA Method -> Low Rank
+	ADDS MATRICES OF PARAMETERS IN SELF ATTENTION USUALLY
+		freezes most of original LLM weights
+		
+		inject 2 rank decomposition matrices
+		
+		Train the wieghts of small matrices
+		matrix multiplied low ranked to be same as main
+		add to original weights.
+		
+		just apply to self-attention is fine. can do it to others but 
+		only at self attention as most params in LLMs = best performance gain
+	
+		512x64 = 32,768 trainable params.
+		
+		LoRa with rank r=8
+			A has dimensions 8x64 = 512
+			B has 512 x 8 = 4,096
+		
+		86% less params and 4608 total
+		
+	Train different rank decomsitions matrices for different tasks.
+	
+	Update weights before inference.
+	
+	switch weights and use multiple matrices for diff tasks.
+	
+	
+	--------------------------
+	PEFT
+	SOFT Prompts
+	prompt tuning:
+	ADDS TOKENS
+		add additional trainable tokens supervised process determeines value.
+		
+		soft prompt vectors --> same length as token vectors
+		20-100 examples? usually good
+		
+	soft prompts --> virtual tokens can take w.e value in the vector space.
+	xyz etc 
+	
+	full fine tuning v.s prompt tuning
+	Weight of model updated. v.s weights of model frozen and soft prompt trained.
+	million to billions v.s 10k to 100k max
+	
+	can use different prompts for mutliple tasks.
+	
+	interpretability of soft prompts:
+		Trained tokens dont correspond to any known token. Nearest tokens have similar meanings.
+		so word like representation learned.
+		
+	-------------------------------
+	Approach: Soft prompts learn additional embeddings, while LoRA modifies the transformer layers
+	by adding low-rank matrices.
+	
+	Scope: Soft prompts only modify the input prompt representations, whereas LoRA focuses on model layers
+	(e.g., attention layers) to introduce task-specific adaptations.
+	
+	Efficiency: Both are efficient methods, but LoRA tends to be used for more significant changes
+	to the model’s internals, while soft prompts are a more lightweight approach for task conditioning.
+	
+	LAB 2
+	
+	PEFT
+	
+===================================================
+RELF -- Reinforcement Learning from Human Feedback
+RLHF
+
+	use db for facts and genAi is for reasoning etc.
+	
+	HHH -- helpful honest harmless
+	
+	fine tuning with human feedback:
+		produces better responses than instruned and pre tuned models.
+		
+		RLHF
+		
+		maximize helpfulness, relevence, minimize harms.
+		avoid dangerous topics.
+		
+		--> reinforcement learning:
+				agent learns to make decisions acc to goal in env
+				
+				learns from actions --> in env recieves rewards.
+				increase chances of success.
+				
+				rollout --> as exp --> highest high term rewards.
+				
+				RL Policy = LLM == Generate aligned text objective : HHH
+				
+				**state = current context.
+				
+				env llm context. 
+
+				reward = how close to human preference. reward is difficult.
+				human evaluate it. acc to some alignement. LLM updated iteratively,.
+				
+				reward model --> classify outputs.
+				train second by smaller training data.
+				
+				rollout == sequence of acitons and state.
+				
+				

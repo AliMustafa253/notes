@@ -1,3 +1,3 @@
 # notes
 
-Various different notes including AWS etc
+Various different notes including AWS, FullStack etc

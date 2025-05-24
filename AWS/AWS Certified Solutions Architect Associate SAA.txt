@@ -1368,7 +1368,118 @@ others regional like ec2 --> aws regional services check availability per region
 			if on cloudshell -> install dig and nslookup via sudo yum
 				warna works khud
 		
+		Records TTL(Time to line):
+			Dont want to query DNS too often. since they dont change alot.
+			High TTL. 24 hours:
+				less traffic on Route53.
+				outdated records possible.
+			Low TTL. e.g 60 secs: opposite.
+				easy to change records
+			
+			Except for Alias --> req for all records
+			
+		CNAME v.s Alias
+			A record = CNAME. hostname to another hostname.
+			ONLY FOR NON ROOT DOMAINs.
+			
+		Alias:
+			specific to route54, 
+			WORKS FOR BOTH ROOT AND NON ROOT DOMAINS (mydomain.com
+			free, native health check
+			
+			Extension to DNS functionality.
+			Automatically recognize changes in IP. no TTL(ig)
+			A or AAAA for IPv4 v6
+			
+			ELB CloudFront Distributions API Gateway. Beanstalk env. S3 Websites. VPC. GLobal Acc. Route 53record.
+			
+			***NOT FOR EC2 DNS name cant be a target.
+			
+			myapp.stephanetheteacher.com used and value is alb path. Makes it access the alb	in CNAME.
+			
+			Alias: route traffic to ALB. region and alb selected. health. myalias.stephanetheteacher.com. Free.
+			
+		--Routing Policies: route 53:--
+			Route 53 responds to DNS queries.
+			Routing:
+				not same as load balancer routing.
+				DNS doesnt route any traffic, only responds to DNS queries.
+				
+			--Simple--
+				Typically route traffic to a single resource.
+				randomly chosen by client if multiple values given.
+				Alias enabled, then specify AWS resource.
+				doesnt allow health checks.
+				
+			--Weighted--
+				% requests go to each specific resources.
+				weights given to each record.
+				DNS records should have same name and type.
+				Load balancing between regions, testing new app version.
+				assign weight 0 = no traffic on resource.
+				
+			--Latency--
+				lowest latency.
+				measured by user and AWS region connection.
+				have to specify region ourselves.
+				
+			--Failover--
+				failover to secondary- disaster recover.
+				
+			--GEolocation--
+				diff from latency based.
+				routing based on user location.
+				create default record in case no match on location.
+				restrict content distribution, web localization, load balacning etc.
+				
+			--Geoproximity--
+				geographic location.
+				shift based on bias.
+				more bias -> more traffic to resources.
+					AWS -> region otherwise lat and long mentioned
+					
+			--IP based--
+				optimize performance, reduce network costs.
+				know specific ISP provider then use it.
+				
+			--Multi Value--
+				route to multiple resources.
+				associate with health checks.
+				up to 8 healthy records can be send for each query.
+				Not a subsitute for ELB.
+				know it is healthy when returned.
+				
+				
+		--Health Checks--
+			e.g Multi region setup ALB. auto scaling.
+			
+			only passes if 2xx or 3xx status codes. 
+			based on text then check first 5120 byes.
+			If one region down, go to other region with health check.
 		
+			 - health checks monitor endpoints.
+				-> about 15 global Healthchecks that check. over 80% healthy - healthy
+			 
+				other health checks ( calculated hc)
+					combined multiple hcs. OR AND or NOT. upto 256 childs hc
+				monitor cloudwatch alarms. Throttles of DynamoDB, alarms on RDS etc
+			integrated with CW metrics.
+			-private hz-
+				***route 53 health checkers outside VPC. cant access.
+				create a CW metric and associate CW alarm, create HC that checks the alarm itself
+				
+			Domain Registrar v.s DNS Service.
+			
+				amazon registrar, godaddy etc.
+				Domain registrar gives a DNS record via DNS service.
+				
+				can use another DNS service to manage your DNS records.
+				
+				all registrars come with some DNS features
+	
+=======Classic Solution Architecture Discussions========			
+			
+			
 		
 		
 		

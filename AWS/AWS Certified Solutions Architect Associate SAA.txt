@@ -1479,12 +1479,147 @@ others regional like ec2 --> aws regional services check availability per region
 	
 =======Classic Solution Architecture Discussions========			
 			
+	Stateful Web App: MyClothes.
+		shopcart with user info and shop cart info shouldnt be lost.
+		
+		- Stickiness -> session affinity. ELB stickiness.
+		Same instance always.
+		
+		- User can store cookies and send shopping cart content in web cookies. can be in diff instances.
+			HTTP requests are heavier.
+			Cookies can be altered.
+			Cookies must be less than 4KB
+		
+		- Server sessions.
+			Session id into elasticache or DynamoDB.
+			add cart content into elasticache.
+				other ec2 instance. elasticache is looked up from session id.
 			
+		- Store user data.
+			Amazon RDS.
 		
+		Most usage = reads.
+			RDS master. RDS read replicas.
+		Read from cache. = lazy loading.
+			if not in cache then store in cache and allow hit.
 		
+		Multi AZ- Survive Disasters.
+		open HTTP/HTTPS traffic. in public ip. rest is restricted traffic.
 		
+	-MyWordPress.com-
+		Use aurora mysql (not necessary but still)
+		store images -> EBS volume. AZ and EC2 instance issues
+				use EFS --> ENI which connect to Ec2 and az.
+				
+		Aurora DB --> ez Multi AZ and Read Replicas.
+		storing EBS good for single. EFS in distribute app
 		
+	---Instantiating applications quickly---
+		EC2 Instances:
+			use a golden AMI: install apps OS dependencies, etc beforehand and launch EC2 from golden AMI>
+			Bootstrap user data: configure dynamic config, use user data scripts. FOR DYNAMIC ELSE YOU ARE REPEATING THINGS.
+			ELASTIC BEAN STALK.
 		
+		RDS Database:
+			Restore a snapshot: db schemas and data ready.
+		EBS volumes:
+			Restore from a snapshot: disk alrdy formatted nad have data.
+			
+	
+	---BEANSTALK---
+		mostly same architecture for web apps.
+		-> dev centric view for deploying an app on AWS.
+		Uses all components, managed service.
+			Auto handle capacity providisioning, load baalncingm sclaing, app, health etc.
+			JUST APP CODE DEVS responsibiility.
+			Beanstalk is free.
+		
+		--Components--
+			Application: env versions, config etc.
+			Application version: an iteration of your app code.
+			Environment:
+				Collection of AWS resources running an app version.
+				Tiers: Web Server Env Tier and Worker Env Tier.
+				Create multiple environments.
+				
+		***Web Server Tier v.s Worker Tier***
+		 
+			--Web Server--
+				traditional architecture -> ELB -> auto scaling ec2 instance.
+			
+			--Worker--
+				pull messages from sqs queue. The more messages = more sqs message instances.
+				NO CLIENT SQS QUEUE USED.
+				
+		
+		-- single instance for dev.
+		
+		-- High availability load balancer great for prod.
+		
+		stateless tier = dont use EBS bcus it attaches toa ec2 instance.
+		use something with session id to access a db like ElastiCache etc
+		
+		****You want to install software updates on 100s of Linux EC2 instances that you manage. You want to store these updates on shared storage which should be dynamically loaded on the EC2 instances and shouldn't require heavy operations. What do you suggest?
+		
+		Storing software updates on EFS and mounting it as a network drive at startup is effective because EFS allows multiple EC2 instances to access the same file system simultaneously, simplifying the management of software updates across hundreds of instances without heavy operational overhead. This approach ensures that each instance can easily retrieve the necessary updates on demand, aligning well with efficient, scalable cloud operations.
+
+Was this content relevant to you?
+
+
+====S3====
+	one of the main building blocks in AWS.
+	Infinitely scaling storage
+		backup
+		disaster recovery.
+		archive
+		app and media hosting.
+		data lakes and big data analytics.
+		software delivery.
+		static website.
+		
+	--Buckets--
+		store objects(files) in "buckets"(directories)
+		Buckets must be globally unique accross all regions all accounts.
+		buckets are defined in region level.
+		S3 Sounds global but is created in regions.
+		No uppercase, no underscore.
+		3-63 characters long.
+		not an IP.
+		start with lowercase letter and number	-s3alias cant bhi suffix or xn-- prefix not allowed
+		
+	--Objects--
+		objects(files) have a key.
+		Key is the FULL path:
+			s3://my-bucket/my_folder/my_file.txt 
+			key is composed of prefix + object name.
+			prefix = my_folder + w.e then key = my_file.txt
+			
+		Max obj size is 5TB(5000GB)
+		If more than 5GB than use multi part upload.
+		
+		Metadata (list of key and value pairs)
+		Tags. unicode key/value pair. for security/ lifecycle.
+		Version ID
+		
+	pre-signed URL. has credentials encoded.
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 		
 	------AWS Integration and messaging-------
 

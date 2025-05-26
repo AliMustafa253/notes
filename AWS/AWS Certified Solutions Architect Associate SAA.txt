@@ -1602,10 +1602,140 @@ Was this content relevant to you?
 		Version ID
 		
 	pre-signed URL. has credentials encoded.
+	
+	-- S3 -- Security:
+		User-Based:
+			which api by which user from IAM.
+		Resource-Based:
+			Bucket Policies: bucket wide ruels from s3 console.
+			Object Access Control List (ACL) finer grain. (can be disabled)
+			Bucket Access Control List (ACL) less common.
+			
+		an IAM principal can access an S3 Object if:
+			user iam and resource policy allows  and no explicit DENY.
+			
+		Encryption:
 		
-
-
-
+	S3 Bucket Policies:
+		json based.
+			Resource: buckets and objects.
+			effect: allow/deny.
+			action: set api.
+			principal: acc or user.
+		
+		can be used to grant public access to bucket.
+		force object to encrypt.
+		grant access to anoyther account.
+		
+	IAM policy. use IAM roles
+	
+	Block settings: 
+		block public access.	Prevent company data leaks.
+		
+	---S3 Static Website hosting---
+		host s3 static web.
+			URL depends on region.
+			need public reads.
+	
+	---S3 Versioning---
+		version files.
+		enabled at bucket level.
+		same key overwrites will change v.
+		protect against unintended deletes.
+		easy roll back to prev version.
+		Note:
+			Any file not versioned prior will be null.
+			suspending doesnt del prev versions.
+			
+		**DELETE MARKER == deleted for that version. delete it to get prev version
+		
+	---S3 Replication---
+		enable versioning in source and desitination buckets
+		CRR
+			cross region replication
+		SRR
+			Same region replic
+		
+		Buckets can be in diff aws acc.
+		copying is asyncronous.
+		give proper IAM permissions.
+		
+		CRR --> compliance, lower latency, replication.
+		SRR --> log aggregation, live replication between prod and test accounts.
+		
+		***Only new objects replicated once enabled.
+		replicate existiing using S3 Batch Replication.
+		
+		For DELETE operations.
+			can replicate delete markers.
+			deletions with a version ID are not replicated
+		
+		There is no "chaining" of replication.
+			if bucket 1 has replication into bucket 2, which has rep into 3.
+			then object created in bucket 1 are not replicated to bucket 3.
+			
+		delete marker replication:
+			Replicates delete marker --> delete marker on replicates as well.
+		***PERMANENT DELETE DOESNT DELETE ON REPLICATED
+		
+		Durability:
+			High Durability (99%.9999) of objects across multi AZ.
+			10,000,000 obj lose 1 in 10,000 years.
+			Same for all storage classes.
+			
+		Availability:
+			Measures how readily available a service is.
+			99.99% = 53 minutesn ot avaialble per year.
+			
+	---S3 Storage Classes---
+		S3 Standard- General Purpose
+			freq access.
+			low latency and high throughput.
+			
+			** Big Data analytics, mobile and gaming apps, content distribution
+		
+		S3 Standard- Infrequent Access
+			less freq acc, rapid access when needed.
+			Lower cost than S3.
+				99.9% availability
+			***Disaster Recovery,backups
+		
+		S3 One Zone-Infrequent Access
+			High durability(99.9%): data lost when AZ destroyed
+			99.5% availability
+			
+			**Storing secondary backup copies of on premise data, data that is replicable.
+		
+		S3 Glacier Instant Retrieval
+			low-cost boject meant for backup/archiving.
+			pricing: price for storage + obj retrieval cost.
+			**min storage 90 days.
+			
+		S3 Glacier flexible retrieval
+			Epedited(1 to 5min), standard (3 to 5 hours), Bulk(5to 12hours) free.
+			**Minimum storage for 90 days
+		
+		S3 Galcier Deep Archive
+			Standard(12 hrs) Bulk(48hours)
+			**minimum storage is 180 days
+		
+		*S3 Intelligent Tiering
+			Move obj in between access tiers based on usage.
+			small monthly monitoring and auto tiering fee.
+			no retrieval charges in s3 IT.
+			
+			freq access: default.
+			Infreq access: obj not access for 30days.
+			archive instant access tier: obj 
+			archive access(optiona;) from 90 days to 700+ days comfig
+			Deep archive access tier (180days to 700+ days)
+			
+		***EACH FILE AND FOLDER CAN HAVE DIFF TYPE
+		
+		**can move b/w classes or use s3 lifecycle
+		**explicit DENY in an IAM policy overrides any permission granted by an S3 bucket policy,
+		
+===Advanced S3===
 
 
 

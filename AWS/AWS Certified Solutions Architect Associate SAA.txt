@@ -1737,18 +1737,310 @@ Was this content relevant to you?
 		
 ===Advanced S3===
 
+	moving between storage.
+	infreq -> move to stnadard IA
+	e.g
+	
+	---Lifecycle Rules---
+		- Transition Actions - configure objects to transition to another storage class.
+			Move objects to standard IA class after 60 days of creation.
+			Move to Glacier archiving after 6 months.
+		
+		- Expiration Actions:
+			delete object after some time.
+			after 365  days delete logs.
+			delete old versions of files.
+			delete incomplete multi part uploads.
+		
+		rules for certain prefix can be made.
+		rules for certain object tags. (e.g finance)
+		
+	transition noncurrent versions to standard IA.
+	Noncurrent versions to glacier archive
+	
+	--s3 analytics -- 
+		storage class analysis.
+		
+		help transition objects.
+		recommendation for stnadard and standard IA.
+		report updated daily.
+		24-to 48 hours to see analysis.
+		good step for lifecycle
 
 
+	--- S3 Requester Pays ---
+		bucket owner pays for all s3 storage and data transfer costs.
+		***Requester pays bucket --> instead of owner requester pays for networking costs
+		Helpful for sharing large datasets.
+		***Requester must not be anonymous
 
+	--- S3 Event Notifications ---
+		S3ObjectCreated, S3:ObjectRemoved.
+		object name filtering possible.
+		
+		use case: generate thumbnails of images upload to s3.
+		SNS SQS or lambda function.
+		
+	IAM permissions.
+		S3 --> SNS (SNS Resource Access policy)
+				SQS // // 
+				Lambda Function // // Policy
+		
+		**DEFINE ACCESS POLICIES IN ALL 3 
+		
+	--Amazon EventBridge:--
+		All events in eventbridge. --> over 18 AWS services as desitnations according to rules.
+		
+	Advanced filtering objects with json rules.
+	Multiple destinations.
+	Eventbridge capabilities - archive, replay events, reliable delivery.
+	
+	---S3 Baseline Performance---
+		- automatically scales to high req rates, latency 100-200ms.
+		- Your app can achieve atleast 3.5k put/post/copy/delete or - 5.5k get/head req per second per prefix in a bucket.
+		- no limit to the number of prefixes in a bucket.
+		
+		S3 Performance:
+			- Multi part upload for 100mb+ files and must for 5gb+
+			- Can help parallelize uploads (speed up transfer)
+			
+		S3 Transfer Acceleration:
+			Increase transfer speed by transferring file to aws edge location. forward the data to s3 bucket in the target reg
+			
+			---> file in usa --> edge location in usa --> to s3 in aust
+			
+		--S3 Byte Range Fetches--
+			Parallelize GETs by requesting specific byte ranges.
+			better resilience in case of failures.
+			
+			**Can speed up downloads**
+			**Can be used to retrieve only partial data e.g head of a file.
+			
+		--S3 Batch Operations--
+			Bulk operations:
+				Modify all object metadata and properties.
+				Copy objects between s3 buckets
+				Modify ACL,tags
+				Restore objects from s3 Glacier.
+				Encrypt unecrypted objects.
+				invoke lambda function to perform custom action on each object.
+				
+			- a job consists list of objects actions tand params.
+			- S3 Batch manages retries, tracks progress, sends completion notifications, reports etc.
+			**S3 inventory to get obj list and use Athenta to quey and filer the objects
+			
+			
+		--S3 Storage Lens--
+			- Analyze and optimize storage across AWS organization.
+			- discover anomalies, cost efficiencies, data protection practices.
+			- aggregate data for organization, speicific accounts, regions,buckets or prefix.
+			- Default dashboard or create own.
+			- can export metrics daily to s3 buckets (csv, parquet)
+			
+			-default dashboard-
+				free and advanced metrics: insights and trends.
+				shows multi region and multi acc data.
+				preconfigured by s3.
+				cnat delete but disable.
+		
+			--metrics--
+				Summary metrics:
+					general insights, storagebyrtes, obj count etc. 
+					fastest growing or not used buckets.
+				Cost Optimization metrics.
+					noncurrentversionstoragebyes,incomplete multipart.
+					usecase: see which bucket failed multipart upload etc.
+				
+				Data-Protection Metrics:
+					VersioningEnabledBucketCount,MFADeleteEnabled,
+					identify Buckets not following best practices.
+				
+				Access-Management Metrics:
+					Insights for S3 Object Ownership.
+					Idnetiy ownership
+				
+				Events Metrics:
+				
+				Performance Metrics:
+					TransferAccelerationEnabled etc.
+					
+				Activity Metrics;
+					allreq,getreq,putreq,bytesdownloaded
+					
+				Detailed Status code metrics:
+					provide insights for http status codes,
+					200OkStatusCount,403, etc
+					
+				
+				Free v.s Paid:
+					Free Metrics: All customers:
+					28 usage metrics: available for 14 days.
+					
+				Advanced Metrics:
+					activiity, advanced cost.
+					Access Cloudwatch without charges.
+					Prefix: collect metrics at prefix level.
+					data avaialble for 15 months.
+					
+				***Byte Range Fetch
+				
+===S3 Security===
+	-- Object Encryption --
+		- Server-Side Encryption (SSE)
+			- SSE-S3
+				with amazon s3 managed keys.
+				enabled by default, - with amazon s3 managed keys.
+				Owned by AWS, No access to us.
+				AES-256
+				header = x-amz-server-side-encryption: AES256
+			- SSE-KMS
+				keys handled and managed by AWS KMS
+				KMS advantages: user control + audit key usage using cloudtrail.
+				header = x-amz-server-side-encryption: aws:kms
+				**object and key required to access file
+				KMS limits: KMS quota. per second. based on region.
+				Can increase quote.
+				
+			- SSE-C (customer provided)
+				Outside of AWS.
+				Send key to aws. discarded after use.
+				**HTPS must be used.
+				HTTP header must have key as well.
+				**only in cli not console
 
+		- Client Side Encryption.
+			- client libraries.
+			- clients encrypt data themselves outside s3.
+			- decryption data themselves outside aws s3.
+			- Customer fully manages the keys and encryption cycle.
+			
+		S3 - Encryption in transit (SSL/TLS)
+			Encryption in flight aka SSL/TLS
+			S3 exposes two endpoints.
+			HTTP.
+			HTTPS (encryption in flight)
+			
+			HTTPS is recommended.
+		SSE-C Required.
+		
+		---Forcing encryption in transit---
+			****Policy Bucket. Condition --> aws:SecureTransport = false
+			
+	---Default Encryption v.s Bucket Polciies ---
+		automatically applied to new objects SSE-S3.
+		Optionally you can force encryption using bucket policy and refuse any API call to put and s3 obj without encryption headers (SSE-KMS or SSE-C)
+		
+	
+	---CORS---
+		Cross Orgiin Resource Sharing.
+		
+		Origin = Scheme( protocol ) + host (domain) + port
+		
+		scheme host and port same == CORS.
+		http://example.com/app1 example.com/app2
+		Diff origings = other.example and example.com
+		
+		req not fulfilled unless other origin allows req using CORS headers.
+		
+		browser --> origin 
+				--> cross origin --> preflight request. and response.
+					if web server allows origin. then allow call.
+					
+		cross origin req on s3 buket. enable correct CORS headers.
+		allow specific origin or *
+		
+	---MFS Delete---
+		permanently delete 
+		suspendVersioning on bucket.
+		not for:
+			Enable Versioning
+			List deleted versions
+		MFA delete versioning must be enabled on bucket.
+		***root acc can enable/disable MFA delete only
 
-
-
-
-
-
-
-
+	---S3 Access Logs---
+		Audit purposes: log all access to s3 buckets.
+		Data can be analyzed by athena etc.
+		target logging bucket must be in same aws region.
+		
+		Warning:
+			Never set logging bucket to same as montioring bucket.
+			CREATES LOGGING LOOP
+			
+		updates bucket policy to allow to put obj into bucket by 
+		
+	***S3 Pre-Signed URLS***
+		URL expiration: s3 console 1min up to 12 hours.
+			AWS CLI. default 3.6k sec max 168 hours.
+		users given a presigned url inherit the permisssons of theu ser that generated the url for get/put
+		Carrys credentials
+		
+		**Temporary access.
+		Logged in users to dwonload premium video from s3 buckets.
+		Allow an ever changing list of users to download files.
+		Temporarily allow a user to upload a file to precise locaiton in ur s3 buckets
+		
+		presigned url --> option in photo.
+		
+		share a presigned url.
+	
+	---S3 Glacier Vault Lock---
+		WORM (Write once Read Many) model.
+		Create a vault lock Policy.
+		**Lock the policy for future edits. (no longer be changed or deleted)
+		**Helpful for compliance and data retention.
+		
+	---S3 Object Lock---
+		Adopt a WORM model.
+		Block an object version deletion for a specified amount of time.
+		Retention mode - Compliance:
+			Object versions cant be overwritten or deleted by any user, including the root.
+			Objects retention modes cant be changed, retention periods cant be shortened.
+			
+		Retention mode - Governance:
+			Most users cant overwrite or delte obj versions or lock settings.
+			Some users have special permissions to change retention or delete obj.
+		
+		Governance have some users with permissions.
+		Retention Period: 
+			- protect object for a fixed period, can be extended.
+		Legal Hold:
+			- Protect the object indefinitely, independent from retention period.
+			- freely placed and removed using s3:PutObjectLegalHold IAM permissions.
+			
+	---S3 Access Point---
+		different users access a lot of data categorized.
+		Create e.g Finance Access Point.
+			- Generate an Access Policy. Read write process.
+			
+		**Simplify security points for each bucket
+		
+	--VPC Origin---
+		define access point to be accessible only from the VPC.
+		Create VPC endpoint to access the Access Point (gateway)
+		VPC endpoint policy msut allow access to raget bucket and access point.
+		
+	--S3 Object LAMBDA--
+		Use AWS lambda functions to change the object b4 it is retrieved by caller app.
+		Only one s3 bucket needed, on top of which we create S3 Access Point and S3 Object Lambda Access Points.
+		
+		e.g
+		
+		S3 Access point connected to lambda function --> redact object 
+		--> analytics application.
+		
+		Lambda FUnction --> enrich data. lookup from customer loyalty db with s3 bucket. --> s3 object lambda access point --> enriched object.
+		
+		Use Case:
+			Redact personally identifiable info for analytics or non prod env.
+			converting across data formats such as converting xml to json.
+			resizing and watermarking images on the fly.
+		
+		
+	
+	
+	
+	
 
 		
 	------AWS Integration and messaging-------

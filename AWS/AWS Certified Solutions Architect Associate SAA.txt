@@ -2039,8 +2039,149 @@ Was this content relevant to you?
 		
 	
 	
+===AWS CLOUDFRONT===
+	CDN.
+	Improves read performance, content is cached at the edge.
+	Improves user experience.
+	**216 Point of presence globally (edge locations)
+	DDoS protection (because worldwide), integration with shield, aws web app firewall
 	
+	---Origins---
+	S3 Buckets:
+		For distributing files and caching them at the edge.
+		For uploading files to S3 through Cloudfront.
+		Secured using OAC (origin access control)
+		
+	VPC Origins.
+		For applications hosted in VPC priv subnets
+		ALB /NLB/Ec2
+		
+	Custom Origins.
+		S3 Website(enable s3 static web)
+		any public HTTP backend you want.
+		
+	CloudFront at a high level.
+		Client --> edge location --> see if in cache --> go to origin to get result
+		---> cached to local cache --> another client goes thr so wont go to origin.
+		
+	CloudFront v.s S3 Cross Region REplicaiton:
+		Global Edge network.
+		Files are cached for a TTL (maybe a day)
+		Great for static content which must be available everywehere.
+		
+	S3 Cross Region REplication:
+		Replicate to another region.
+		set up to each region
+		Read only.
+		Great for dynamic content that needs to be available at low latency in few regions.
+		
+	CloudFront can be used to access files which arent public as weell.
+	s3 policy --> allow cloudfront access to s3:GetObject. As loing as cloudfront distribution is the one we created.
 	
+	Origin access created for it
+	
+	---CloudFront ALB or EC2 as an origin using VPC origins ----
+	- Allows you to deliver content from your app in vpc priv subnet(no need to expose to internet)
+	- Deliver traffic to private:
+		ALB
+		NLB
+		Ec2
+		
+	Private:
+		One of the most secure way to do your setup.
+		Choose what to expose through the cloudfront.
+	
+	Public:
+		allow public ip of edgelocations.
+		sec group allowing public ip from edge locations to be allowed.
+		ALB must be public. EC2 can be private.
+		Harder as well.
+	
+	---Geo Restriction---
+		restrict distribution.
+			Using allowlist and blocklist for countries.
+			use case: copyright laws.
+			
+		
+	---Price cases---
+		cost of data out per edge location varies.
+		India a lot more cost. e.g 
+		
+		10TB 20TB etc.
+		
+		Reduce number of edge locations for cost reductions.
+		Three price classes:
+			price class all
+			price class 200:
+			price class 100: least expensive.
+			
+		
+	---Cache invalidations---
+		backend - origin. if udpated --> edge locations dont know. once TTL expired then cloudfront knows refreshed content is to be given.
+		Force entire/partial cache refresh (bypassing TTL) by performing a *CloudFront Invalidation*
+		Invalidate all files (*) or special path (/images/*)
+		
+===Global Accelerator===
+	Deployed an app and global users want to access it.
+	Go over public app --> latency due to many hops of routers.
+	hops -> latency and risks.
+	Wish to go asap through aws network.
+	
+		Unicast IP v.s Anycast IP:
+			Unicast IP: one server holds one IP address.
+			Anycast IP: all servers hold the same IP address. client routed to nearest one.
+			
+	Uses anycast concept.
+	leverage AWS internal network to route to your application.
+	instead of public app --> talks to edge location. goes straight to our ALB.
+	2 Anycast IP are created for your application. sends traffic cloesest to Edge locations.
+	Edge locations sends the traffic to your application.
+	
+	elasic ip, ec2 instances, alb nlb public or private.
+	
+	-Consistent performance.
+		intelligent routing to lowest latency and fast regional failvoer.
+		no issue with client cache (IP doesnt change)
+		Internal AWS network.
+		
+	Health checks:
+		helps make your app globbal.
+		great for disaster recovery (health checks)
+	
+	Security:
+		only 2 external IP needs to be whitelisted.
+		DDoS protection due to AWS SHield
+	
+	CloudFront v.s Global Accelerator:
+		same edge location and global network.
+		both integrate with AWS Shield.
+		
+		Cloudfront:
+			imrpove performce for both cache and dynamic content.
+			content servered at edge.
+			
+		Global Accelerator:
+			imrpoves performance for aw ide range of apps over TCP orUDP.
+			Proxying packets at edge to app running in one or more aws.
+			good for non HTTP use cases such as gaming(UDP) IOT(MQTT) or Voip
+			Good for http use cases that req static IP.
+			Good for deterministic fast regional failover.
+			
+			
+		it is global.
+		
+		listeners: ports protocl (TCP for http) client affinity (stickiness)
+		endpoint groups: group by region. Traffic dial.
+		
+		
+===Other Storage===
+	
+		
+		
+		
+		
+		
+		
 
 		
 	------AWS Integration and messaging-------
